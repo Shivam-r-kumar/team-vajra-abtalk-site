@@ -2,12 +2,19 @@
   "name": "abtalks-60-day-challenge",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "serve . -l 3000",
-    "build": "echo \"static site - nothing to build\"",
-    "start": "serve . -l 3000"
+    "dev": "vite --host 127.0.0.1 --port 3000",
+    "build": "vite build",
+    "start": "vite preview --host 127.0.0.1 --port 3000"
   },
   "devDependencies": {
-    "serve": "^14.2.4"
+    "@vitejs/plugin-react": "^6.0.5",
+    "vite": "^8.2.1"
+  },
+  "dependencies": {
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.2"
   }
 }
