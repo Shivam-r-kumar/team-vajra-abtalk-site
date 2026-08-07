@@ -53,7 +53,7 @@ export default function LandingPage() {
           <nav className="nav-desktop" aria-label="Primary">
             <Link to="/" className="nav-link is-active" aria-current="page">Home</Link>
             <a href="#about" className="nav-link">About</a>
-            <Link to="/dashboard" className="btn btn-outline btn-sm">Dashboard</Link>
+          <Link to="/dashboard" className="nav-link">Dashboard</Link>
           </nav>
           <div className="header-actions">
             <ThemeButton />
@@ -75,7 +75,7 @@ export default function LandingPage() {
             <nav className="container mobile-menu-inner" aria-label="Mobile">
               <Link to="/" className="mobile-link is-active" onClick={() => setMenuOpen(false)}>Home</Link>
               <a href="#about" className="mobile-link" onClick={() => setMenuOpen(false)}>About</a>
-              <Link to="/dashboard" className="btn btn-primary btn-block" onClick={() => setMenuOpen(false)}>Dashboard</Link>
+            <Link to="/dashboard" className="mobile-link" onClick={() => setMenuOpen(false)}>Dashboard</Link>
             </nav>
           </div>
         )}
