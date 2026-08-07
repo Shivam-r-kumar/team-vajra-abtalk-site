@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>ABTalks Day 12 — Responsive Portfolio Website</title>
+<meta name="description" content="Day 12 challenge for ABTalks: Build a responsive portfolio website and submit your GitHub and LinkedIn proof." />
+<meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#101317" media="(prefers-color-scheme: dark)" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../css/global.css" />
+<link rel="stylesheet" href="../../css/challenge.css" />
+<script>
+  (function () {
+    try {
+      var stored = localStorage.getItem("abtalks-theme");
+      var theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="challenge-header">
+  <div class="container challenge-header-inner">
+    <a href="../../dashboard/index.html" class="icon-link" aria-label="Back to dashboard">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a href="../../" class="brand challenge-brand" aria-label="ABTalks home">
+      <img src="../../assets/abtalks-logo.png" alt="ABTalks" class="brand-logo" width="160" height="32" />
+    </a>
+    <button type="button" class="icon-btn" id="themeToggle" aria-label="Switch to dark mode">
+      <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M21.4 12h-2.2M4.8 12H2.6M18.6 5.4l-1.6 1.6M7 17l-1.6 1.6M18.6 18.6L17 17M7 7L5.4 5.4"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.4A8.4 8.4 0 1 1 9.6 4a6.9 6.9 0 0 0 10.4 10.4Z"/></svg>
+    </button>
+  </div>
+</header>
+<main id="main" class="challenge-page">
+  <section class="challenge-hero reveal">
+    <p class="eyebrow challenge-badge">Day 12 of 60</p>
+    <h1 class="challenge-title">Build a Responsive<br />Portfolio Website</h1>
+    <div class="challenge-meta">
+      <span class="pill">Intermediate</span>
+      <span class="pill">~45 min</span>
+    </div>
+  </section>
+
+  <section class="challenge-card challenge-mission reveal">
+    <div class="section-head">
+      <span class="section-kicker">Today's Mission</span>
+      <h2>Build a portfolio that feels polished on mobile.</h2>
+    </div>
+    <p class="challenge-copy">Create a clean, modern, mobile-friendly portfolio that showcases your projects, skills, and provides easy ways for people to contact you.</p>
+  </section>
+
+  <section class="challenge-card challenge-build reveal">
+    <div class="section-head">
+      <span class="section-kicker">What you'll build</span>
+      <h2>Requirements for this page</h2>
+    </div>
+    <ul class="checklist">
+      <li><span class="checkmark">✓</span> Hero section with your name and short introduction</li>
+      <li><span class="checkmark">✓</span> Projects section with at least 2 projects</li>
+      <li><span class="checkmark">✓</span> Skills section highlighting your top skills</li>
+      <li><span class="checkmark">✓</span> Contact section with email or contact form</li>
+      <li><span class="checkmark">✓</span> Mobile-responsive layout</li>
+    </ul>
+  </section>
+
+  <section class="challenge-card challenge-done reveal">
+    <div class="section-head">
+      <span class="section-kicker">You're done when</span>
+    </div>
+    <ul class="done-list">
+      <li>Your project works correctly on mobile</li>
+      <li>Your code is pushed to GitHub</li>
+      <li>Your progress is shared publicly on LinkedIn</li>
+    </ul>
+  </section>
+
+  <section class="challenge-card challenge-streak reveal">
+    <div class="streak-label">🔥 Complete today to extend your streak to 12 days</div>
+    <div class="streak-timer">
+      <span id="timeRemaining">Calculating time left...</span>
+    </div>
+  </section>
+
+  <section class="challenge-card challenge-proof reveal" aria-labelledby="proofTitle">
+    <div class="section-head">
+      <span class="section-kicker">Proof of Work</span>
+      <h2 id="proofTitle">Share links to your work to complete Day 12.</h2>
+    </div>
+    <form class="challenge-form" id="challengeForm" novalidate>
+      <div class="form-group">
+        <label for="githubUrl">GitHub repository / commit URL</label>
+        <div class="input-row">
+          <span class="input-icon" aria-hidden="true">GH</span>
+          <input id="githubUrl" name="githubUrl" type="url" placeholder="https://github.com/username/project" required />
+        </div>
+        <p class="field-help">Enter your public GitHub repository or commit link.</p>
+        <p class="field-error" id="githubError" aria-live="polite"></p>
+      </div>
+
+      <div class="form-group">
+        <label for="linkedinUrl">LinkedIn post URL</label>
+        <div class="input-row">
+          <span class="input-icon" aria-hidden="true">in</span>
+          <input id="linkedinUrl" name="linkedinUrl" type="url" placeholder="https://www.linkedin.com/posts/..." required />
+        </div>
+        <p class="field-help">Make sure both links are public and accessible.</p>
+        <p class="field-error" id="linkedinError" aria-live="polite"></p>
+      </div>
+
+      <button type="submit" class="btn btn-primary challenge-submit" id="submitButton">🚀 Submit Day 12</button>
+    </form>
+  </section>
+
+  <section class="challenge-success reveal" id="successState" hidden>
+    <div class="success-mark">✓</div>
+    <h2>Day 12 Complete</h2>
+    <p class="success-copy">Your proof of work has been recorded.</p>
+    <div class="success-meta">🔥 12 Day Streak</div>
+    <a href="../../dashboard/index.html" class="btn btn-primary success-action">Back to Dashboard</a>
+    <p class="success-note">Day 13 unlocks next.</p>
+  </section>
+</main>
+<script src="../../js/main.js"></script>
+<script src="../../js/challenge.js"></script>
+</body>
+</html>
