@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader";
 
@@ -25,6 +25,93 @@ const dashboardData = {
   }
 };
 
+const communityProfiles = {
+  shivam: {
+    id: "shivam",
+    name: "Shivam Kumar",
+    initials: "SK",
+    rank: 142,
+    title: "Responsive portfolio website",
+    about: "Learning in public, building one practical project every day, and sharing the process with the ABTalks community.",
+    githubHref: "https://github.com/Shivam-r-kumar",
+    linkedinHref: "https://www.linkedin.com/",
+    submissionHref: "https://github.com/Shivam-r-kumar",
+    submitted: true,
+    isCurrentUser: true
+  },
+  aanya: {
+    id: "aanya",
+    name: "Aanya Sharma",
+    initials: "AS",
+    rank: 1,
+    title: "Editorial developer portfolio",
+    about: "Frontend developer focused on accessible interfaces, thoughtful typography, and small details that make products feel effortless.",
+    githubHref: "https://github.com/topics/react-portfolio",
+    linkedinHref: "https://www.linkedin.com/",
+    submissionHref: "https://github.com/topics/react-portfolio",
+    submitted: true
+  },
+  dev: {
+    id: "dev",
+    name: "Dev Malhotra",
+    initials: "DM",
+    rank: 2,
+    title: "Motion-first personal website",
+    about: "Creative developer exploring motion, interaction design, and React experiences that stay fast on every device.",
+    githubHref: "https://github.com/topics/developer-portfolio",
+    linkedinHref: "https://www.linkedin.com/",
+    submissionHref: "https://github.com/topics/developer-portfolio",
+    submitted: true
+  },
+  meera: {
+    id: "meera",
+    name: "Meera Iyer",
+    initials: "MI",
+    rank: 3,
+    title: "Accessible product portfolio",
+    about: "Product-minded engineer who enjoys turning complex ideas into clear, inclusive, and responsive web experiences.",
+    githubHref: "https://github.com/topics/portfolio",
+    linkedinHref: "https://www.linkedin.com/",
+    submissionHref: "https://github.com/topics/portfolio",
+    submitted: true
+  },
+  riya: {
+    id: "riya",
+    name: "Riya",
+    initials: "R",
+    rank: 86,
+    title: "Playful frontend portfolio",
+    about: "Design learner and frontend builder experimenting with color, layout, and friendly interactions through daily challenges.",
+    githubHref: "https://github.com/topics/react-portfolio",
+    linkedinHref: "https://www.linkedin.com/",
+    submissionHref: "https://github.com/topics/react-portfolio",
+    submitted: true
+  },
+  aditya: {
+    id: "aditya",
+    name: "Aditya",
+    initials: "A",
+    rank: 205,
+    title: "Developer portfolio system",
+    about: "JavaScript developer building reusable UI systems and using the 60-day challenge to improve consistency.",
+    githubHref: "https://github.com/topics/developer-portfolio",
+    linkedinHref: "https://www.linkedin.com/",
+    submissionHref: "https://github.com/topics/developer-portfolio",
+    submitted: true
+  },
+  neha: { id: "neha", name: "Neha", initials: "N", submitted: false },
+  kabir: { id: "kabir", name: "Kabir", initials: "K", submitted: false }
+};
+
+const topSubmissions = [communityProfiles.aanya, communityProfiles.dev, communityProfiles.meera];
+const friendStandings = [communityProfiles.shivam, communityProfiles.riya, communityProfiles.aditya, communityProfiles.neha, communityProfiles.kabir]
+  .sort((firstFriend, secondFriend) => {
+    if (firstFriend.rank == null && secondFriend.rank == null) return 0;
+    if (firstFriend.rank == null) return 1;
+    if (secondFriend.rank == null) return -1;
+    return firstFriend.rank - secondFriend.rank;
+  });
+
 function getTimeLeft() {
   const now = new Date();
   const midnight = new Date(now);
@@ -46,6 +133,12 @@ function useMidnightCountdown() {
 
 export default function DashboardPage() {
   const { student, challenge } = dashboardData;
+  const [standingOpen, setStandingOpen] = useState(false);
+  const [selectedProfile, setSelectedProfile] = useState(null);
+  const [connectionRequests, setConnectionRequests] = useState([]);
+  const [nudgedFriends, setNudgedFriends] = useState([]);
+  const standingTriggerRef = useRef(null);
+  const profileTriggerRef = useRef(null);
   const timeLeft = useMidnightCountdown();
   const progressPercent = Math.round((student.currentDay / student.totalDays) * 100);
   const completedPercent = (student.completedDays / student.totalDays) * 100;
@@ -53,6 +146,58 @@ export default function DashboardPage() {
     day,
     state: day < student.currentDay ? "done" : day === student.currentDay ? "today" : "upcoming"
   })), [student.currentDay]);
+
+  useEffect(() => {
+    if (!standingOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const closeAndRestoreFocus = () => {
+      setStandingOpen(false);
+      setSelectedProfile(null);
+      window.requestAnimationFrame(() => standingTriggerRef.current?.focus());
+    };
+    const handleKeyDown = (event) => {
+      if (event.key !== "Escape") return;
+      if (selectedProfile) {
+        setSelectedProfile(null);
+        window.requestAnimationFrame(() => profileTriggerRef.current?.focus());
+        return;
+      }
+      closeAndRestoreFocus();
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedProfile, standingOpen]);
+
+  const closeStanding = () => {
+    setStandingOpen(false);
+    setSelectedProfile(null);
+    window.requestAnimationFrame(() => standingTriggerRef.current?.focus());
+  };
+
+  const openProfile = (profile, event) => {
+    profileTriggerRef.current = event.currentTarget;
+    setSelectedProfile(profile);
+  };
+
+  const closeProfile = () => {
+    setSelectedProfile(null);
+    window.requestAnimationFrame(() => profileTriggerRef.current?.focus());
+  };
+
+  const sendConnectionRequest = (profileId) => {
+    setConnectionRequests((current) => current.includes(profileId) ? current : [...current, profileId]);
+  };
+
+  const sendNudge = (friendId) => {
+    setNudgedFriends((current) => current.includes(friendId) ? current : [...current, friendId]);
+  };
 
   return (
     <div className="dashboard-page">
@@ -124,11 +269,116 @@ export default function DashboardPage() {
                 <article className="achievement achievement--projects"><span className="achievement__icon" aria-hidden="true">💻</span><p><strong>{student.projectsBuilt} Projects</strong><span>Built so far</span></p></article>
               </div>
             </section>
-            <section className="standing-card" aria-labelledby="standingTitle"><div className="standing-card__icon" aria-hidden="true">↗</div><div><p className="dashboard-overline">Your Standing</p><h2 id="standingTitle">Top {student.standingPercent}%</h2><p><strong>#{student.rank}</strong> of {student.totalStudents} students</p></div></section>
+            <section className="standing-card" aria-labelledby="standingTitle">
+              <div className="standing-card__icon" aria-hidden="true">↗</div>
+              <div>
+                <p className="dashboard-overline">Your Standing</p>
+                <h2 id="standingTitle">Top {student.standingPercent}%</h2>
+                <p><strong>#{student.rank}</strong> of {student.totalStudents} students</p>
+              </div>
+              <button className="standing-view-more" type="button" ref={standingTriggerRef} onClick={() => setStandingOpen(true)} aria-haspopup="dialog">
+                View more <span aria-hidden="true">→</span>
+              </button>
+            </section>
             <section className="profile-nudge" id="profile"><div><h2>Profile ready</h2><p>Your challenge progress is connected to Shivam.</p></div><Link to="/">ABTalks home</Link></section>
           </aside>
         </div>
       </main>
+
+      {standingOpen && (
+        <div className="leaderboard-modal" onMouseDown={(event) => event.target === event.currentTarget && closeStanding()}>
+          <section className="leaderboard-dialog" role="dialog" aria-modal="true" aria-labelledby="leaderboardTitle" aria-describedby="leaderboardDescription" aria-hidden={selectedProfile ? true : undefined} inert={selectedProfile ? true : undefined}>
+            <header className="leaderboard-dialog__header">
+              <div>
+                <p className="dashboard-overline dashboard-overline--blue">Community leaderboard</p>
+                <h2 id="leaderboardTitle">Rankings & submissions</h2>
+                <p id="leaderboardDescription">See standout work and check how your friends are doing today.</p>
+              </div>
+              <button className="leaderboard-close" type="button" onClick={closeStanding} aria-label="Close rankings" autoFocus>×</button>
+            </header>
+
+            <section className="leaderboard-section" aria-labelledby="topSubmissionsTitle">
+              <div className="leaderboard-section__heading">
+                <div><p className="dashboard-overline">Today</p><h3 id="topSubmissionsTitle">Top submissions</h3></div>
+                <span>Day {challenge.day}</span>
+              </div>
+              <ol className="top-submissions">
+                {topSubmissions.map((submission) => (
+                  <li key={submission.rank}>
+                    <span className={`submission-rank submission-rank--${submission.rank}`} aria-label={`Rank ${submission.rank}`}>#{submission.rank}</span>
+                    <div><strong>{submission.name}</strong><span>{submission.title}</span></div>
+                    <button className="submission-action" type="button" onClick={(event) => openProfile(submission, event)} aria-haspopup="dialog">View submission <span aria-hidden="true">→</span></button>
+                  </li>
+                ))}
+              </ol>
+            </section>
+
+            <section className="leaderboard-section" aria-labelledby="friendsRankingTitle">
+              <div className="leaderboard-section__heading">
+                <div><p className="dashboard-overline">Your circle</p><h3 id="friendsRankingTitle">Friends ranking</h3></div>
+                <span>{friendStandings.filter((friend) => friend.submitted).length} submitted</span>
+              </div>
+              <ul className="friends-ranking">
+                {friendStandings.map((friend) => (
+                    <li key={friend.name}>
+                      <span className={`friend-avatar${friend.isCurrentUser ? " is-current-user" : ""}`} aria-hidden="true">{friend.initials}</span>
+                      <div className="friend-details"><span className="friend-name"><strong>{friend.name}</strong>{friend.isCurrentUser && <em>You</em>}</span><span className={friend.submitted ? "is-submitted" : "is-pending"}>{friend.submitted ? `Rank #${friend.rank} · Submitted` : "Submission pending"}</span></div>
+                      {friend.submitted ? (
+                        <button className="friend-action friend-action--link" type="button" onClick={(event) => openProfile(friend, event)} aria-haspopup="dialog">View submission <span aria-hidden="true">→</span></button>
+                      ) : (
+                        <button className={`friend-action friend-action--nudge${nudgedFriends.includes(friend.id) ? " is-sent" : ""}`} type="button" onClick={() => sendNudge(friend.id)} disabled={nudgedFriends.includes(friend.id)} aria-live="polite">
+                          {nudgedFriends.includes(friend.id) ? "Sent successfully ✓" : "Nudge"}
+                        </button>
+                      )}
+                    </li>
+                  ))}
+              </ul>
+              <p className="leaderboard-note"><span aria-hidden="true">ⓘ</span> Nudge is sent inside ABTalks and updates here instantly.</p>
+            </section>
+          </section>
+
+          {selectedProfile && (
+            <div className="profile-popup-layer" onMouseDown={(event) => event.target === event.currentTarget && closeProfile()}>
+              <section className="submission-profile-dialog" role="dialog" aria-modal="true" aria-labelledby="submissionProfileTitle" aria-describedby="submissionProfileAbout">
+                <header className="submission-profile-header">
+                  <span className="submission-profile-avatar" aria-hidden="true">{selectedProfile.initials}</span>
+                  <div>
+                    <p className="dashboard-overline dashboard-overline--blue">Student profile</p>
+                    <h2 id="submissionProfileTitle">{selectedProfile.name}</h2>
+                    <p>{selectedProfile.isCurrentUser ? "Your profile" : `Rank #${selectedProfile.rank}`} · Day {challenge.day} submitted</p>
+                  </div>
+                  <button className="leaderboard-close" type="button" onClick={closeProfile} aria-label={`Close ${selectedProfile.name}'s profile`} autoFocus>×</button>
+                </header>
+
+                <div className="submission-profile-about">
+                  <p className="dashboard-overline">About</p>
+                  <p id="submissionProfileAbout">{selectedProfile.about}</p>
+                </div>
+
+                <article className="submission-profile-project">
+                  <div><p className="dashboard-overline">Day {challenge.day} submission</p><h3>{selectedProfile.title}</h3></div>
+                  <a href={selectedProfile.submissionHref} target="_blank" rel="noreferrer">Open submission <span aria-hidden="true">↗</span></a>
+                </article>
+
+                <div className="submission-profile-links" aria-label={`${selectedProfile.name}'s links`}>
+                  <a href={selectedProfile.githubHref} target="_blank" rel="noreferrer"><span aria-hidden="true">GH</span><strong>GitHub</strong><small>View profile</small></a>
+                  <a href={selectedProfile.linkedinHref} target="_blank" rel="noreferrer"><span aria-hidden="true">in</span><strong>LinkedIn</strong><small>View profile</small></a>
+                </div>
+
+                <footer className="submission-profile-footer">
+                  {selectedProfile.isCurrentUser ? (
+                    <span className="profile-self-label"><span aria-hidden="true">✓</span> This is you</span>
+                  ) : (
+                    <button className={`profile-connect${connectionRequests.includes(selectedProfile.id) ? " is-sent" : ""}`} type="button" onClick={() => sendConnectionRequest(selectedProfile.id)} disabled={connectionRequests.includes(selectedProfile.id)}>
+                      {connectionRequests.includes(selectedProfile.id) ? "Request sent ✓" : "+ Connect"}
+                    </button>
+                  )}
+                </footer>
+              </section>
+            </div>
+          )}
+        </div>
+      )}
 
     </div>
   );

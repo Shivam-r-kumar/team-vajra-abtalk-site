@@ -1051,4 +1051,40 @@ IMPORTANT:
 Do not just explain what might be wrong. Actually inspect the code, edit the necessary files, run the build, fix failures, and keep iterating until npm run build succeeds.
 ```
 
+## 22 — 2026-08-08 12:32:49 IST — Dashboard leaderboard and friend reminders
+
+```text
+dekh dashboard mei you standing rank hai usme view more ke link dalke ek page bnate hai ya pop up jisme voh dekh sakta hai top submissions aur uski link aur friends rank bhi hoga jin friends ne submit nhi kiya hoga unke message kar sakte hai ek button dabate hi prebuilt message jo send hojayega
+```
+
+## 23 — 2026-08-08 12:42:31 IST — Submission profile popup and nudge update
+
+```text
+frieds mei meri bhi rakh dikhaye aur message nhi nudge button ho view sumission click karte hi ek aur pop up khule usme jiski profile ho uski about dikhe github linked link dikhe connect ka friend request ka option ho
+```
+
+## 24 — 2026-08-08 12:49:03 IST — Friends sorted by ascending rank
+
+```text
+frieds mei rank ke acending order me arrange kar agr koi friend upr hai toh usse upr kar
+```
+
+## 25 — 2026-08-08 12:50:01 IST — In-platform nudge success state
+
+```text
+nudge whatsaap pe nhi ussi platform pe ho message sent bs jaise hi click kare sent sucess ful dikhaye bs
+```
+
+## 26 — 2026-08-08 12:50:52 IST — Standing card moved above achievements
+
+```text
+rank wale section ko achievement se upar kar
+```
+
+## 27 — 2026-08-08 12:52:18 IST — Restore previous sidebar order
+
+```text
+phle jaisa hi kr de
+```
+
 
