@@ -733,6 +733,35 @@
 .domain-option:hover .domain-option__footer i { transform: translateX(3px); }
 .domain-picker-note { margin-top: 18px; color: var(--color-faint); font-size: 10.5px; text-align: center; }
 
+.domain-picker-dialog,
+.leaderboard-dialog,
+.submission-profile-dialog,
+.journey-dialog,
+.journey-detail-dialog {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-primary) 42%, var(--color-border-strong)) transparent;
+}
+.domain-picker-dialog::-webkit-scrollbar,
+.leaderboard-dialog::-webkit-scrollbar,
+.submission-profile-dialog::-webkit-scrollbar,
+.journey-dialog::-webkit-scrollbar,
+.journey-detail-dialog::-webkit-scrollbar { width: 8px; }
+.domain-picker-dialog::-webkit-scrollbar-track,
+.leaderboard-dialog::-webkit-scrollbar-track,
+.submission-profile-dialog::-webkit-scrollbar-track,
+.journey-dialog::-webkit-scrollbar-track,
+.journey-detail-dialog::-webkit-scrollbar-track { background: transparent; }
+.domain-picker-dialog::-webkit-scrollbar-thumb,
+.leaderboard-dialog::-webkit-scrollbar-thumb,
+.submission-profile-dialog::-webkit-scrollbar-thumb,
+.journey-dialog::-webkit-scrollbar-thumb,
+.journey-detail-dialog::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--color-primary) 42%, var(--color-border-strong));
+  background-clip: padding-box;
+}
+
 .bottom-nav {
   position: fixed;
   z-index: 50;
@@ -833,41 +862,55 @@
 @media (max-width: 560px) {
   .dashboard-greeting { align-items: flex-start; flex-direction: column; }
   .dashboard-greeting__actions { width: 100%; justify-items: start; }
-  .domain-switch { width: 100%; }
+  .domain-switch { width: 100%; min-height: 44px; }
   .domain-switch b { max-width: none; }
   .domain-switch small { margin-left: auto; }
   .domain-picker-modal { width: 100%; max-width: 100vw; align-items: end; justify-items: center; overflow-x: hidden; padding: 10px 10px 0; }
   .domain-picker-dialog { width: 100%; max-width: 100%; min-width: 0; max-height: calc(94dvh - 10px); margin-inline: auto; padding: 23px 17px calc(24px + env(safe-area-inset-bottom)); border-radius: 24px 24px 0 0; }
   .domain-picker-header { gap: 12px; }
   .domain-picker-header > div { min-width: 0; }
+  .domain-picker-header > button { width: 44px; height: 44px; }
   .domain-picker-header h2 { font-size: clamp(31px, 9vw, 40px); overflow-wrap: anywhere; }
   .domain-picker-grid { width: 100%; min-width: 0; margin-top: 22px; }
   .domain-option { width: 100%; max-width: 100%; min-height: 188px; padding: 18px; }
   .domain-option__description { font-size: 11px; }
+  .progress-card__header button,
+  .journey-heading-actions button,
+  .standing-view-more,
+  .rescue-time,
+  .profile-nudge a { display: inline-flex; align-items: center; min-height: 44px; }
   .standing-card { grid-template-columns: auto 1fr; }
   .standing-view-more { grid-column: 2; justify-self: start; }
-  .leaderboard-modal { align-items: end; padding: 0; }
-  .leaderboard-dialog { max-height: 92dvh; padding: 22px 17px calc(24px + env(safe-area-inset-bottom)); border-radius: 22px 22px 0 0; }
+  .leaderboard-modal,
+  .profile-popup-layer,
+  .journey-modal,
+  .journey-detail-layer { width: 100%; max-width: 100vw; align-items: end; justify-items: center; overflow-x: hidden; padding: 10px 10px 0; }
+  .leaderboard-dialog { width: 100%; max-width: 100%; min-width: 0; max-height: calc(92dvh - 10px); margin-inline: auto; padding: 22px 17px calc(24px + env(safe-area-inset-bottom)); border-radius: 22px 22px 0 0; }
   .leaderboard-dialog__header { gap: 12px; margin-bottom: 24px; }
+  .leaderboard-close { width: 44px; height: 44px; }
   .leaderboard-section__heading { align-items: center; }
   .top-submissions li { grid-template-columns: auto minmax(0, 1fr); }
   .top-submissions li > .submission-action { grid-column: 2; justify-self: start; }
-  .friends-ranking li { gap: 10px; padding-inline: 11px; }
-  .friend-action--link { max-width: 72px; overflow: hidden; text-overflow: ellipsis; }
-  .friend-action--nudge.is-sent { max-width: 92px; overflow: hidden; text-overflow: ellipsis; }
-  .profile-popup-layer { align-items: end; padding: 0; }
-  .submission-profile-dialog { max-height: 92dvh; padding: 22px 17px calc(24px + env(safe-area-inset-bottom)); border-radius: 22px 22px 0 0; }
+  .submission-action,
+  .friend-action { display: inline-flex; align-items: center; min-height: 44px; }
+  .friends-ranking li { grid-template-columns: auto minmax(0, 1fr); gap: 4px 10px; padding-inline: 11px; }
+  .friends-ranking .friend-action { grid-column: 2; justify-self: start; }
+  .friend-action--link,
+  .friend-action--nudge.is-sent { max-width: none; overflow: visible; text-overflow: clip; }
+  .submission-profile-dialog { width: 100%; max-width: 100%; min-width: 0; max-height: calc(92dvh - 10px); margin-inline: auto; padding: 22px 17px calc(24px + env(safe-area-inset-bottom)); border-radius: 22px 22px 0 0; }
   .submission-profile-header { grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; }
   .submission-profile-avatar { width: 48px; height: 48px; border-radius: 14px; }
   .submission-profile-header h2 { font-size: 26px; }
   .submission-profile-project { align-items: flex-start; flex-direction: column; }
+  .profile-connect { min-height: 44px; }
   .journey-heading-actions { align-items: flex-end; flex-direction: column; gap: 3px; }
-  .journey-modal, .journey-detail-layer { align-items: end; padding: 0; }
-  .journey-dialog, .journey-detail-dialog { max-height: 92dvh; padding: 22px 17px calc(24px + env(safe-area-inset-bottom)); border-radius: 22px 22px 0 0; }
+  .journey-dialog, .journey-detail-dialog { width: 100%; max-width: 100%; min-width: 0; max-height: calc(92dvh - 10px); margin-inline: auto; padding: 22px 17px calc(24px + env(safe-area-inset-bottom)); border-radius: 22px 22px 0 0; }
   .journey-dialog__header { gap: 12px; }
   .journey-calendar { gap: 14px 5px; }
   .journey-calendar__day > span { width: 42px; height: 42px; }
   .journey-detail-meta { grid-template-columns: 1fr; }
+  .journey-detail-dialog footer a,
+  .journey-detail-dialog footer button { min-height: 44px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

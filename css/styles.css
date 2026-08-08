@@ -852,6 +852,14 @@ a { color: inherit; text-decoration: none; }
   .value-strip { padding: var(--space-4); }
 }
 
+@media (max-width: 560px) {
+  .brand { min-height: 44px; }
+  .icon-btn { width: 44px; height: 44px; }
+  .btn { min-height: 44px; }
+  .about-links a { min-height: 44px; }
+  .founder-card__copy > a { min-height: 44px; }
+}
+
 @media (min-width: 768px) {
   .container { padding-inline: var(--space-8); }
   .section { padding-block: var(--space-20); }
