@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Brand from "../components/Brand";
-import ThemeButton from "../components/ThemeButton";
+import SiteHeader from "../components/SiteHeader";
 
 const values = [
   { title: "Daily Builds", text: "Build something meaningful every day.", icon: "✦" },
@@ -40,46 +40,13 @@ function useReveal() {
 }
 
 export default function LandingPage() {
-  const [menuOpen, setMenuOpen] = useState(false);
   useReveal();
 
   return (
     <div className="landing-page">
       <a className="skip-link" href="#main">Skip to content</a>
 
-      <header className="site-header" id="top">
-        <div className="container header-inner">
-          <Brand />
-          <nav className="nav-desktop" aria-label="Primary">
-            <Link to="/" className="nav-link is-active" aria-current="page">Home</Link>
-            <a href="#about" className="nav-link">About</a>
-            <Link to="/dashboard" className="nav-link">Dashboard</Link>
-          </nav>
-          <div className="header-actions">
-            <ThemeButton />
-            <button
-              type="button"
-              className="icon-btn menu-btn"
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={menuOpen}
-              aria-controls="mobileMenu"
-              onClick={() => setMenuOpen((open) => !open)}
-            >
-              <svg className="icon-menu" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
-              <svg className="icon-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
-            </button>
-          </div>
-        </div>
-        {!menuOpen ? null : (
-          <div className="mobile-menu" id="mobileMenu">
-            <nav className="container mobile-menu-inner" aria-label="Mobile">
-              <Link to="/" className="mobile-link is-active" onClick={() => setMenuOpen(false)}>Home</Link>
-              <a href="#about" className="mobile-link" onClick={() => setMenuOpen(false)}>About</a>
-              <Link to="/dashboard" className="mobile-link" onClick={() => setMenuOpen(false)}>Dashboard</Link>
-            </nav>
-          </div>
-        )}
-      </header>
+      <SiteHeader />
 
       <main id="main">
         <section className="hero">

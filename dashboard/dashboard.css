@@ -5,7 +5,7 @@
   background:
     radial-gradient(circle at 78% -8%, color-mix(in srgb, var(--color-primary) 5%, transparent) 0, transparent 27rem),
     var(--color-bg);
-  padding-bottom: calc(84px + env(safe-area-inset-bottom));
+  padding-bottom: calc(48px + env(safe-area-inset-bottom));
 }
 
 .dashboard-shell {

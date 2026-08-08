@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import Brand from "../components/Brand";
-import ThemeButton from "../components/ThemeButton";
+import { Link } from "react-router-dom";
+import SiteHeader from "../components/SiteHeader";
 
 const dashboardData = {
   student: {
@@ -45,25 +44,6 @@ function useMidnightCountdown() {
   return timeLeft;
 }
 
-function DashboardHeader() {
-  return (
-    <header className="dashboard-header">
-      <div className="dashboard-shell dashboard-header__inner">
-        <Brand className="dashboard-brand" />
-        <nav className="dashboard-top-nav" aria-label="Dashboard">
-          <NavLink to="/dashboard">Home</NavLink>
-          <NavLink to="/day/12">Challenge</NavLink>
-          <a href="#journey">Progress</a>
-        </nav>
-        <div className="dashboard-header__actions">
-          <ThemeButton />
-          <a className="profile-button" href="#profile" aria-label="Open profile for Shivam">SK</a>
-        </div>
-      </div>
-    </header>
-  );
-}
-
 export default function DashboardPage() {
   const { student, challenge } = dashboardData;
   const timeLeft = useMidnightCountdown();
@@ -77,7 +57,7 @@ export default function DashboardPage() {
   return (
     <div className="dashboard-page">
       <a className="skip-link" href="#dashboardMain">Skip to dashboard</a>
-      <DashboardHeader />
+      <SiteHeader />
 
       <main className="dashboard-shell dashboard-main" id="dashboardMain">
         <section className="dashboard-greeting" aria-labelledby="greetingTitle">
@@ -150,12 +130,6 @@ export default function DashboardPage() {
         </div>
       </main>
 
-      <nav className="bottom-nav" aria-label="Mobile dashboard navigation">
-        <NavLink className={({ isActive }) => `bottom-nav__item${isActive ? " is-active" : ""}`} to="/dashboard"><span className="nav-glyph nav-glyph--home" aria-hidden="true" /><span>Home</span></NavLink>
-        <NavLink className={({ isActive }) => `bottom-nav__item${isActive ? " is-active" : ""}`} to="/day/12"><span className="nav-glyph nav-glyph--code" aria-hidden="true">&lt;/&gt;</span><span>Challenge</span></NavLink>
-        <a className="bottom-nav__item" href="#journey"><span className="nav-glyph nav-glyph--progress" aria-hidden="true" /><span>Progress</span></a>
-        <a className="bottom-nav__item" href="#profile"><span className="nav-glyph nav-glyph--profile" aria-hidden="true" /><span>Profile</span></a>
-      </nav>
     </div>
   );
 }

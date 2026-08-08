@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import Brand from "../components/Brand";
-import ThemeButton from "../components/ThemeButton";
+import { Link } from "react-router-dom";
+import SiteHeader from "../components/SiteHeader";
 
 const challenge = {
   day: 12,
@@ -49,16 +48,7 @@ export default function DayChallengePage() {
   return (
     <div className="day-page">
       <a className="skip-link" href="#dayMain">Skip to challenge</a>
-      <header className="day-header">
-        <div className="day-shell day-header__inner">
-          <Brand />
-          <nav className="day-nav" aria-label="Challenge navigation">
-            <NavLink to="/dashboard">Dashboard</NavLink>
-            <span aria-current="page">Day 12</span>
-          </nav>
-          <div className="day-header__actions"><ThemeButton /><Link className="profile-button" to="/dashboard" aria-label="Back to Shivam’s dashboard">SK</Link></div>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="day-shell day-main" id="dayMain">
         <Link className="day-back" to="/dashboard"><span aria-hidden="true">←</span> Back to dashboard</Link>
