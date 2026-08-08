@@ -1151,4 +1151,16 @@ your progress mei bhi dal de link aur footer ko thoda tagda kar / route ke logo 
 your progress mie link right side add kar top mei
 ```
 
+## 37 — 2026-08-08 14:22:06 IST — Mobile About section spacing
+
+```text
+390 px karne pe about section mei founder image aur learn by building mie gap nhi hai
+```
+
+## 38 — 2026-08-08 14:23:00 IST — Dark mode as the default theme
+
+```text
+aur default color ko dark mode kar de
+```
+
 

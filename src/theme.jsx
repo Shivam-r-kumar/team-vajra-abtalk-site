@@ -4,7 +4,7 @@ const ThemeContext = createContext(null);
 const STORAGE_KEY = "abtalks-theme";
 
 function getInitialTheme() {
-  return document.documentElement.getAttribute("data-theme") || "light";
+  return document.documentElement.getAttribute("data-theme") || "dark";
 }
 
 export function ThemeProvider({ children }) {

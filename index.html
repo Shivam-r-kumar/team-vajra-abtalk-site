@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>ABTalks — 60-Day Coding Challenge</title>
     <meta name="description" content="A 60-day coding challenge for Indian college students. Build daily, share your proof, and grow your consistency." />
-    <meta name="theme-color" content="#FAF9F6" />
+    <meta name="theme-color" content="#0F1319" />
     <meta property="og:title" content="ABTalks — 60-Day Coding Challenge" />
     <meta property="og:description" content="Build for 60 days. Become impossible to ignore." />
     <meta property="og:image" content="/og.png" />
@@ -18,7 +18,7 @@
       (function () {
         try {
           var stored = localStorage.getItem("abtalks-theme");
-          var theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          var theme = stored || "dark";
           document.documentElement.setAttribute("data-theme", theme);
         } catch (e) {}
       })();
