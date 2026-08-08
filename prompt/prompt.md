@@ -1169,4 +1169,10 @@ aur default color ko dark mode kar de
 ab iss poore project ki detail readme.md mei daal de scratch se samjhe har feature ko shuruaat mie prompt.md versel live site repo link de diyo phir explain start kariyo in eng professional tarike se
 ```
 
+## 40 — 2026-08-08 14:37:38 IST — Concise and beginner-friendly README
+
+```text
+abe jyada bdi readme kar di thodi choti kar samjhne mei assan aur saari cheeze nhi samjhani imp cheeze like feature sturdent submit kar sata hai 30 din ki histroy dekh sakta hai ranking etc
+```
+
 
