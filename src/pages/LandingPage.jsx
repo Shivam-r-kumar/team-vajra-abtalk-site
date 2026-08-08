@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader";
 import { studentData } from "../data";
@@ -14,6 +14,57 @@ const steps = [
   ["02", "Build today’s task", "Solve the daily challenge and build something meaningful."],
   ["03", "Submit proof of work", "Push your GitHub commit and share a LinkedIn post."],
   ["04", "Grow your streak", `Stay consistent for ${studentData.totalDays} days and keep building momentum.`]
+];
+
+const studentStories = [
+  {
+    name: "Aanya Sharma",
+    course: "B.Tech CSE · Pune",
+    quote: "The daily challenge turned coding into a habit. I stopped waiting for motivation and started showing up every day.",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=192&q=82"
+  },
+  {
+    name: "Arjun Mehta",
+    course: "BCA · Jaipur",
+    quote: "By the end of the challenge I had 60 project commits and a portfolio I could confidently share in interviews.",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=192&q=82"
+  },
+  {
+    name: "Meera Nair",
+    course: "Data Science · Kochi",
+    quote: "Submitting proof of work kept me accountable. My learning finally became visible, organised, and consistent.",
+    image: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=192&q=82"
+  },
+  {
+    name: "Kabir Singh",
+    course: "B.Tech IT · Chandigarh",
+    quote: "Domain-based tasks meant every build supported my actual career goal instead of feeling like random practice.",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=192&q=82"
+  },
+  {
+    name: "Riya Verma",
+    course: "AI & ML · Bengaluru",
+    quote: "The streak and friends ranking gave me the push to finish even on busy college days. Small wins kept adding up.",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=192&q=82"
+  },
+  {
+    name: "Dev Malhotra",
+    course: "MCA · Delhi",
+    quote: "Building one small project daily taught me more than weeks of only watching tutorials. I learned by shipping.",
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=192&q=82"
+  },
+  {
+    name: "Sana Khan",
+    course: "Computer Science · Hyderabad",
+    quote: "The 30-day history made progress feel real. Whenever I slowed down, seeing completed days helped me restart.",
+    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=192&q=82"
+  },
+  {
+    name: "Ishaan Rao",
+    course: "Electronics · Chennai",
+    quote: "One focused challenge a day improved my time management and gave me practical projects beyond coursework.",
+    image: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?auto=format&fit=crop&w=192&q=82"
+  }
 ];
 
 function useReveal() {
@@ -39,8 +90,59 @@ function useReveal() {
   }, []);
 }
 
+function useStorySlider(count) {
+  const sliderRef = useRef(null);
+  const instantScrollRef = useRef(true);
+  const resetTimerRef = useRef(null);
+  const [activeSlide, setActiveSlide] = useState(count);
+  const [storyPaused, setStoryPaused] = useState(false);
+
+  useEffect(() => {
+    const slider = sliderRef.current;
+    const activeCard = slider?.querySelector(`[data-story-index="${activeSlide}"]`);
+    if (!slider || !activeCard) return undefined;
+
+    const centerActiveSlide = () => {
+      const target = activeCard.offsetLeft - ((slider.clientWidth - activeCard.offsetWidth) / 2);
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      slider.scrollTo({
+        left: target,
+        behavior: reduced || instantScrollRef.current ? "auto" : "smooth"
+      });
+      instantScrollRef.current = false;
+    };
+
+    centerActiveSlide();
+    window.addEventListener("resize", centerActiveSlide);
+
+    if (activeSlide === count * 2) {
+      resetTimerRef.current = window.setTimeout(() => {
+        instantScrollRef.current = true;
+        setActiveSlide(count);
+      }, 700);
+    }
+
+    return () => {
+      window.removeEventListener("resize", centerActiveSlide);
+      if (resetTimerRef.current) {
+        window.clearTimeout(resetTimerRef.current);
+        resetTimerRef.current = null;
+      }
+    };
+  }, [activeSlide, count]);
+
+  useEffect(() => {
+    if (storyPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+    const timer = window.setInterval(() => setActiveSlide((current) => current + 1), 2600);
+    return () => window.clearInterval(timer);
+  }, [storyPaused]);
+
+  return { sliderRef, activeSlide, setStoryPaused };
+}
+
 export default function LandingPage() {
   useReveal();
+  const { sliderRef, activeSlide, setStoryPaused } = useStorySlider(studentStories.length);
 
   return (
     <div className="landing-page">
@@ -172,13 +274,37 @@ export default function LandingPage() {
       </main>
 
       <footer className="site-footer">
-        <div className="container footer-inner">
-          <div className="footer-top">
-            <div className="footer-copy"><span className="footer-eyebrow">Build · Learn · Lead</span><h2>Technology meets leadership. Learning becomes proof.</h2><p>AB Talks helps students and early professionals turn practical AI learning into projects, confidence, and career-ready momentum.</p></div>
-            <dl className="footer-proof"><div><dt>{studentData.totalDays}</dt><dd>Days</dd></div><div><dt>{studentData.totalDays}</dt><dd>Builds</dd></div><div><dt>1</dt><dd>Stronger habit</dd></div></dl>
+        <section className="student-stories" aria-label="Illustrative student testimonials">
+          <div className="stories-slider" ref={sliderRef} onMouseEnter={() => setStoryPaused(true)} onMouseLeave={() => setStoryPaused(false)}>
+            <div className="stories-track">
+              {[0, 1, 2].flatMap((copy) => studentStories.map((story, index) => {
+                const trackIndex = (copy * studentStories.length) + index;
+                const isActive = trackIndex === activeSlide;
+
+                return (
+                  <div
+                    className="story-slide"
+                    data-story-index={trackIndex}
+                    key={`${copy}-${story.name}`}
+                    aria-hidden={copy === 1 ? undefined : "true"}
+                  >
+                    <article className={`story-card${isActive ? " is-active" : ""}`} aria-current={copy === 1 && isActive ? "true" : undefined}>
+                      <div className="story-stars" aria-label="5 out of 5 stars">★★★★★</div>
+                      <blockquote>“{story.quote}”</blockquote>
+                      <div className="story-student">
+                        <img src={story.image} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer" />
+                        <div><strong>{story.name}</strong><span>{story.course}</span></div>
+                      </div>
+                    </article>
+                  </div>
+                );
+              }))}
+            </div>
           </div>
-          <div className="footer-bottom"><p>© 2026 AB Talks. Built for the next generation of AI builders.</p><p>Technology · Leadership · Community</p></div>
-        </div>
+          <p className="stories-disclaimer">Illustrative demo testimonials shown with royalty-free stock photography from Unsplash.</p>
+        </section>
+
+        <div className="container footer-bottom"><p>© 2026 AB Talks. Built for the next generation of AI builders.</p><p>60 days · 60 builds · one stronger habit</p></div>
       </footer>
     </div>
   );
