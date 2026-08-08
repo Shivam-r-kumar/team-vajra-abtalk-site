@@ -1087,4 +1087,11 @@ rank wale section ko achievement se upar kar
 phle jaisa hi kr de
 ```
 
+## 28 — 2026-08-08 13:00:44 IST — Fix Vercel output directory mismatch
+
+```text
+Error: No Output Directory named "client" found after the Build completed. Configure the Output Directory in your Project Settings. Alternatively, configure vercel.json#outputDirectory.
+Learn More: https://vercel.link/missing-public-directory
+```
+
 
