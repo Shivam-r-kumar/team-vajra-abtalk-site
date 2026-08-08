@@ -1094,4 +1094,61 @@ Error: No Output Directory named "client" found after the Build completed. Confi
 Learn More: https://vercel.link/missing-public-directory
 ```
 
+## 29 — 2026-08-08 13:05:42 IST — Day 12 portfolio reference image
+
+```text
+day 12 mei jo task hai uska right side khali hai toh ek refernece image dal de site ki jo dekh ke bna sake
+```
+
+## 30 — 2026-08-08 13:10:27 IST — Larger simple reference image with popup
+
+```text
+dekh simple image lga thoda bada karke ki acha lage aur jaise hi img pe click kare ek popup khule
+```
+
+## 31 — 2026-08-08 13:25:39 IST — Trust-focused AB Talks about copy
+
+```text
+about para ko thoda acha kar ab talk ka info . It helps students and early professionals become industry-ready through practical AI education, hands-on challenges, and community learning. You can visit their official page on ABTalksOnAI LinkedIn. linkedin https://www.linkedin.com/company/abtalks-on-ai/  Welcome to AB Talks — where Technology meets Leadership!
+
+This channel is dedicated to bringing you valuable insights from industry leaders, including CEOs, founders, and technology experts. Through meaningful conversations, we explore topics such as AI, technology, leadership, career growth, internships, and job opportunities for fresh graduates. founder linkedin https://www.linkedin.com/in/anil-bajpai/  in sabko analyze kar aur about likh badiya sa deekhte hi trust aur sab smjh aa jaye
+Our goal is to help students and early-career professionals learn directly from experienced leaders and prepare for the future of work.
+Our mission is to uncover how technology, leadership, and business come together to shape the world of tomorrow.
+
+👉 Subscribe now and join a growing community passionate about AI, technology, and leadership excellence.
+
+🎙 New podcast episodes every Wednesday.
+Links
+```
+
+## 32 — 2026-08-08 13:39:17 IST — Founder photo in About section
+
+```text
+about ka side khali lag rha hia founder ki photo utha ke saal de
+```
+
+## 33 — 2026-08-08 13:49:21 IST — Match founder image to About text height
+
+```text
+abhi ki img para graph se badi ho rhi hai usse same size mei la para ke
+```
+
+## 34 — 2026-08-08 13:55:12 IST — 30-day journey record and day detail popup
+
+```text
+your journey page pe view more ka link de aur click karte hi popup khul jaye jisme 30 dino ka record ho like 30 circle day 1 2 3 4 ... done not done uspe click kare to ek pop up khule jisme view submission aaye aur kya challenge tha voh bhi aaye
+```
+
+## 35 — 2026-08-08 14:00:35 IST — Progress link and stronger link-free footer
+
+```text
+your progress mei bhi dal de link aur footer ko thoda tagda kar / route ke logo hta de footer se link bhi
+```
+
+## 36 — 2026-08-08 14:06:38 IST — Progress link aligned top-right
+
+```text
+your progress mie link right side add kar top mei
+```
+
 
