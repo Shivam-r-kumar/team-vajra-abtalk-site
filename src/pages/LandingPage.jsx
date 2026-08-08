@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Brand from "../components/Brand";
 import SiteHeader from "../components/SiteHeader";
 
 const values = [
@@ -115,9 +114,33 @@ export default function LandingPage() {
 
         <section className="section section-surface" id="about">
           <div className="container">
-            <header className="section-head reveal"><span className="section-kicker">About ABTalks</span><h2 className="section-title">Why students join</h2><p className="section-sub">Showing up daily is what separates people who talk about building from people who build.</p></header>
+            <div className="about-grid">
+              <header className="section-head about-section-head reveal">
+                <span className="section-kicker">About ABTalks</span>
+                <h2 className="section-title">Where technology meets leadership—and learning becomes action.</h2>
+                <p className="section-sub">AB Talks is an AI-first career and learning community helping students and early-career professionals become industry-ready. Through practical AI education, hands-on challenges, and direct conversations with CEOs, founders, and technology leaders, members build real skills and prepare for the future of work.</p>
+                <p className="about-detail">Led by founder Anil Bajpai, the community connects technology, business, and leadership with the questions young professionals care about most—from career growth and internships to the skills employers value today.</p>
+                <div className="about-links" aria-label="Official AB Talks links">
+                  <a href="https://www.linkedin.com/company/abtalks-on-ai/" target="_blank" rel="noreferrer"><span aria-hidden="true">in</span> Follow ABTalksOnAI <b aria-hidden="true">↗</b></a>
+                  <a href="https://www.linkedin.com/in/anil-bajpai/" target="_blank" rel="noreferrer"><span aria-hidden="true">in</span> Meet founder Anil Bajpai <b aria-hidden="true">↗</b></a>
+                </div>
+                <p className="about-schedule"><span aria-hidden="true">●</span> New podcast conversations every Wednesday.</p>
+              </header>
+
+              <aside className="founder-card reveal" aria-labelledby="founderName">
+                <a className="founder-card__image" href="https://www.linkedin.com/posts/abtalks-on-ai_talentacquisition-hiring-recruitment-activity-7428067928799117312-ws5J" target="_blank" rel="noreferrer" aria-label="View the official ABTalksOnAI post featuring Anil Bajpai">
+                  <img src="/assets/anil-bajpai-founder.jpg" alt="Anil Bajpai, founder and podcast host at AB Talks" loading="lazy" />
+                </a>
+                <div className="founder-card__copy">
+                  <span>Founder & podcast host</span>
+                  <h3 id="founderName">Anil Bajpai</h3>
+                  <p>Connecting young builders with practical AI learning and honest conversations from industry leaders.</p>
+                  <a href="https://www.linkedin.com/in/anil-bajpai/" target="_blank" rel="noreferrer">View LinkedIn profile <span aria-hidden="true">↗</span></a>
+                </div>
+              </aside>
+            </div>
             <div className="cards-3">
-              {[['Build consistency', 'Turn motivation into a habit that lasts.'], ['Create a public portfolio', 'Real projects. Real proof. Real you.'], ['Stay visible', 'Build in public and make your progress easier to discover.']].map(([title, text]) => (
+              {[['Learn by building', 'Turn practical AI lessons and hands-on challenges into skills you can demonstrate.'], ['Learn from leaders', 'Hear directly from founders, CEOs, and technology experts shaping the future of work.'], ['Grow with community', 'Build in public, exchange ideas, and move forward with people learning alongside you.']].map(([title, text]) => (
                 <article className="card reveal" key={title}><h3 className="card-title">{title}</h3><p className="card-text">{text}</p></article>
               ))}
             </div>
@@ -148,7 +171,13 @@ export default function LandingPage() {
       </main>
 
       <footer className="site-footer">
-        <div className="container footer-inner"><Brand /><nav className="footer-nav" aria-label="Footer"><Link to="/">Home</Link><a href="#about">About</a><Link to="/dashboard">Dashboard</Link></nav><p className="footer-note">Built for the ABTalks hackathon demo.</p></div>
+        <div className="container footer-inner">
+          <div className="footer-top">
+            <div className="footer-copy"><span className="footer-eyebrow">Build · Learn · Lead</span><h2>Technology meets leadership. Learning becomes proof.</h2><p>AB Talks helps students and early professionals turn practical AI learning into projects, confidence, and career-ready momentum.</p></div>
+            <dl className="footer-proof"><div><dt>60</dt><dd>Days</dd></div><div><dt>60</dt><dd>Builds</dd></div><div><dt>1</dt><dd>Stronger habit</dd></div></dl>
+          </div>
+          <div className="footer-bottom"><p>© 2026 AB Talks. Built for the next generation of AI builders.</p><p>Technology · Leadership · Community</p></div>
+        </div>
       </footer>
     </div>
   );

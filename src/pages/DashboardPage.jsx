@@ -112,6 +112,53 @@ const friendStandings = [communityProfiles.shivam, communityProfiles.riya, commu
     return firstFriend.rank - secondFriend.rank;
   });
 
+const journeyChallengeTitles = [
+  "Create Your Personal Introduction Page",
+  "Build a Profile Card Component",
+  "Design a Landing Page Hero",
+  "Create a Responsive Navigation Bar",
+  "Build a Pricing Cards Section",
+  "Design an Accessible Contact Form",
+  "Create a Simple To-Do App",
+  "Build a Weather Dashboard",
+  "Create a JavaScript Calculator",
+  "Design a Product Landing Page",
+  "Build a Responsive Blog Layout",
+  "Build a Responsive Portfolio Website",
+  "Create an Interactive Quiz App",
+  "Build an Expense Tracker",
+  "Create a Movie Search Experience",
+  "Build a Notes App",
+  "Create a Habit Tracker",
+  "Build a Recipe Finder",
+  "Design a Chat Interface",
+  "Create a Kanban Task Board",
+  "Build an E-commerce Product Grid",
+  "Create an Analytics Dashboard",
+  "Build a Student Job Board",
+  "Design an Event Booking Flow",
+  "Create a Markdown Editor",
+  "Build an Authentication Interface",
+  "Create an Admin Dashboard",
+  "Improve Web Performance",
+  "Run an Accessibility Audit",
+  "Ship Your Capstone Project"
+];
+
+const journeyRecords = journeyChallengeTitles.map((title, index) => {
+  const day = index + 1;
+  return {
+    day,
+    title,
+    done: day <= 11,
+    isToday: day === 12,
+    brief: day === 12
+      ? "Create a responsive portfolio that introduces you, showcases your best work, and makes it easy for someone to contact you."
+      : `Build and ship ${title.toLowerCase()} with a clean responsive layout and a clear proof of work.`,
+    submissionHref: day <= 11 ? "https://github.com/Shivam-r-kumar?tab=repositories" : null
+  };
+});
+
 function getTimeLeft() {
   const now = new Date();
   const midnight = new Date(now);
@@ -137,8 +184,12 @@ export default function DashboardPage() {
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [connectionRequests, setConnectionRequests] = useState([]);
   const [nudgedFriends, setNudgedFriends] = useState([]);
+  const [journeyOpen, setJourneyOpen] = useState(false);
+  const [selectedJourneyDay, setSelectedJourneyDay] = useState(null);
   const standingTriggerRef = useRef(null);
   const profileTriggerRef = useRef(null);
+  const journeyTriggerRef = useRef(null);
+  const journeyDayTriggerRef = useRef(null);
   const timeLeft = useMidnightCountdown();
   const progressPercent = Math.round((student.currentDay / student.totalDays) * 100);
   const completedPercent = (student.completedDays / student.totalDays) * 100;
@@ -175,6 +226,33 @@ export default function DashboardPage() {
     };
   }, [selectedProfile, standingOpen]);
 
+  useEffect(() => {
+    if (!journeyOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const closeAndRestoreFocus = () => {
+      setJourneyOpen(false);
+      setSelectedJourneyDay(null);
+      window.requestAnimationFrame(() => journeyTriggerRef.current?.focus());
+    };
+    const handleKeyDown = (event) => {
+      if (event.key !== "Escape") return;
+      if (selectedJourneyDay) {
+        setSelectedJourneyDay(null);
+        window.requestAnimationFrame(() => journeyDayTriggerRef.current?.focus());
+        return;
+      }
+      closeAndRestoreFocus();
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [journeyOpen, selectedJourneyDay]);
+
   const closeStanding = () => {
     setStandingOpen(false);
     setSelectedProfile(null);
@@ -197,6 +275,27 @@ export default function DashboardPage() {
 
   const sendNudge = (friendId) => {
     setNudgedFriends((current) => current.includes(friendId) ? current : [...current, friendId]);
+  };
+
+  const openJourney = (event) => {
+    journeyTriggerRef.current = event.currentTarget;
+    setJourneyOpen(true);
+  };
+
+  const closeJourney = () => {
+    setJourneyOpen(false);
+    setSelectedJourneyDay(null);
+    window.requestAnimationFrame(() => journeyTriggerRef.current?.focus());
+  };
+
+  const openJourneyDay = (record, event) => {
+    journeyDayTriggerRef.current = event.currentTarget;
+    setSelectedJourneyDay(record);
+  };
+
+  const closeJourneyDay = () => {
+    setSelectedJourneyDay(null);
+    window.requestAnimationFrame(() => journeyDayTriggerRef.current?.focus());
   };
 
   return (
@@ -234,11 +333,15 @@ export default function DashboardPage() {
             </section>
 
             <section className="progress-card" aria-labelledby="progressTitle">
+              <div className="progress-card__header">
+                <p className="progress-kicker" id="progressTitle">Your progress</p>
+                <button type="button" onClick={openJourney} aria-haspopup="dialog">View more <span aria-hidden="true">→</span></button>
+              </div>
               <div className="progress-summary">
                 <div className="progress-ring" style={{ "--progress": progressPercent }} role="progressbar" aria-label="Challenge progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow={progressPercent}>
                   <div className="progress-ring__inner"><span>Day</span><strong>{student.currentDay}</strong><small>of {student.totalDays}</small></div>
                 </div>
-                <div className="progress-copy"><p className="progress-kicker" id="progressTitle">Your progress</p><p className="streak-line"><span aria-hidden="true">🔥</span>{student.currentStreak ? `${student.currentStreak} Day Streak` : "Your first streak starts today"}</p><p className="progress-encouragement">You’re building real momentum.</p></div>
+                <div className="progress-copy"><p className="streak-line"><span aria-hidden="true">🔥</span>{student.currentStreak ? `${student.currentStreak} Day Streak` : "Your first streak starts today"}</p><p className="progress-encouragement">You’re building real momentum.</p></div>
               </div>
               <div className="linear-progress"><div className="linear-progress__labels"><strong>{progressPercent}% complete</strong><span>{student.completedDays} completed days</span></div><div className="linear-progress__track" role="progressbar" aria-label="Days completed" aria-valuemin="0" aria-valuemax={student.totalDays} aria-valuenow={student.completedDays}><span style={{ width: `${completedPercent}%` }} /></div></div>
             </section>
@@ -250,7 +353,7 @@ export default function DashboardPage() {
             </section>
 
             <section className="journey-section" id="journey" aria-labelledby="journeyTitle">
-              <div className="section-heading-row"><div><p className="dashboard-overline">Progress</p><h2 id="journeyTitle">Your Journey</h2></div><span>{student.completedDays} / {student.totalDays} days</span></div>
+              <div className="section-heading-row"><div><p className="dashboard-overline">Progress</p><h2 id="journeyTitle">Your Journey</h2></div><div className="journey-heading-actions"><span>{student.completedDays} / {student.totalDays} days</span><button type="button" onClick={openJourney} aria-haspopup="dialog">View more <span aria-hidden="true">→</span></button></div></div>
               <ol className="journey-stepper" aria-label="Recent challenge days">
                 {journey.map(({ day, state }) => {
                   const stateLabel = state === "done" ? "Done" : state === "today" ? "Today" : "Upcoming";
@@ -373,6 +476,46 @@ export default function DashboardPage() {
                       {connectionRequests.includes(selectedProfile.id) ? "Request sent ✓" : "+ Connect"}
                     </button>
                   )}
+                </footer>
+              </section>
+            </div>
+          )}
+        </div>
+      )}
+
+      {journeyOpen && (
+        <div className="journey-modal" onMouseDown={(event) => event.target === event.currentTarget && closeJourney()}>
+          <section className="journey-dialog" role="dialog" aria-modal="true" aria-labelledby="journeyDialogTitle" aria-describedby="journeyDialogDescription" aria-hidden={selectedJourneyDay ? true : undefined} inert={selectedJourneyDay ? true : undefined}>
+            <header className="journey-dialog__header">
+              <div><p className="dashboard-overline dashboard-overline--blue">30-day record</p><h2 id="journeyDialogTitle">Your challenge journey</h2><p id="journeyDialogDescription">Select any day to see its challenge and submission record.</p></div>
+              <button className="leaderboard-close" type="button" onClick={closeJourney} aria-label="Close journey record" autoFocus>×</button>
+            </header>
+
+            <div className="journey-record-summary"><span><i className="is-done" /> {journeyRecords.filter((record) => record.done).length} done</span><span><i className="is-pending" /> {journeyRecords.filter((record) => !record.done).length} not done</span></div>
+
+            <ol className="journey-calendar" aria-label="First 30 challenge days">
+              {journeyRecords.map((record) => (
+                <li key={record.day}>
+                  <button className={`journey-calendar__day ${record.done ? "is-done" : "is-not-done"}${record.isToday ? " is-today" : ""}`} type="button" onClick={(event) => openJourneyDay(record, event)} aria-haspopup="dialog" aria-label={`Day ${record.day}, ${record.done ? "done" : "not done"}. View challenge details.`}>
+                    <span>{record.day}</span><strong>Day {record.day}</strong><small>{record.done ? "Done" : "Not done"}</small>
+                  </button>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          {selectedJourneyDay && (
+            <div className="journey-detail-layer" onMouseDown={(event) => event.target === event.currentTarget && closeJourneyDay()}>
+              <section className="journey-detail-dialog" role="dialog" aria-modal="true" aria-labelledby="journeyDayTitle" aria-describedby="journeyDayDescription">
+                <header>
+                  <div><p className="dashboard-overline dashboard-overline--blue">Day {selectedJourneyDay.day} challenge</p><span className={`journey-detail-status ${selectedJourneyDay.done ? "is-done" : "is-not-done"}`}>{selectedJourneyDay.done ? "✓ Done" : "Not done"}</span></div>
+                  <button className="leaderboard-close" type="button" onClick={closeJourneyDay} aria-label={`Close Day ${selectedJourneyDay.day} details`} autoFocus>×</button>
+                </header>
+                <div className="journey-detail-copy"><h2 id="journeyDayTitle">{selectedJourneyDay.title}</h2><p id="journeyDayDescription">{selectedJourneyDay.brief}</p></div>
+                <div className="journey-detail-meta"><span>Day {selectedJourneyDay.day} of 60</span><span>{selectedJourneyDay.done ? "Proof submitted" : selectedJourneyDay.isToday ? "Today’s challenge" : "Submission pending"}</span></div>
+                <footer>
+                  {selectedJourneyDay.submissionHref ? <a href={selectedJourneyDay.submissionHref} target="_blank" rel="noreferrer">View submission <span aria-hidden="true">↗</span></a> : <button type="button" disabled>View submission</button>}
+                  {!selectedJourneyDay.submissionHref && <small>No submission yet for this challenge.</small>}
                 </footer>
               </section>
             </div>

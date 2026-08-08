@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader";
 
@@ -44,11 +44,36 @@ export default function DayChallengePage() {
   const [completed, setCompleted] = useState(savedSubmission.completed);
   const [githubUrl, setGithubUrl] = useState(savedSubmission.githubUrl);
   const [linkedinUrl, setLinkedinUrl] = useState(savedSubmission.linkedinUrl);
+  const [referenceOpen, setReferenceOpen] = useState(false);
+  const referenceTriggerRef = useRef(null);
 
   useEffect(() => {
     document.title = `Day ${challenge.day}: ${challenge.title} — ABTalks`;
     return () => { document.title = "ABTalks — 60-Day Coding Challenge"; };
   }, []);
+
+  useEffect(() => {
+    if (!referenceOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event) => {
+      if (event.key !== "Escape") return;
+      setReferenceOpen(false);
+      window.requestAnimationFrame(() => referenceTriggerRef.current?.focus());
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [referenceOpen]);
+
+  function closeReference() {
+    setReferenceOpen(false);
+    window.requestAnimationFrame(() => referenceTriggerRef.current?.focus());
+  }
 
   function completeChallenge(event) {
     event.preventDefault();
@@ -77,9 +102,17 @@ export default function DayChallengePage() {
             <div className="challenge-meta" aria-label="Challenge details"><span><span className="meta-dot" aria-hidden="true" />{challenge.difficulty}</span><span><span className="meta-clock" aria-hidden="true" />{challenge.time}</span></div>
             <a className="btn btn-primary day-submit-jump" href="#proofOfWork">Submit Your Work <span aria-hidden="true">↓</span></a>
           </div>
-          <div className="day-hero__status" aria-label="Current challenge status">
-            <span className="day-status__number">12</span>
-            <div><strong>{completed ? "Day complete" : "Ready to build"}</strong><p>{completed ? "Your proof is saved in this browser." : "One focused session. Ship something real."}</p></div>
+          <div className="day-hero__aside">
+            <div className="day-reference-card">
+              <button className="day-reference-trigger" type="button" ref={referenceTriggerRef} onClick={() => setReferenceOpen(true)} aria-haspopup="dialog" aria-label="Enlarge the portfolio reference image">
+                <img src="/assets/day-12-portfolio-reference.png" alt="Reference design showing a responsive developer portfolio in desktop and mobile layouts" />
+                <span className="day-reference-hint" aria-hidden="true">Click to enlarge <b>↗</b></span>
+              </button>
+            </div>
+            <div className="day-hero__status" aria-label="Current challenge status">
+              <span className="day-status__number">12</span>
+              <div><strong>{completed ? "Day complete" : "Ready to build"}</strong><p>{completed ? "Your proof is saved in this browser." : "Use the reference for direction, then make it your own."}</p></div>
+            </div>
           </div>
         </section>
 
@@ -132,6 +165,19 @@ export default function DayChallengePage() {
           </aside>
         </div>
       </main>
+
+      {referenceOpen && (
+        <div className="day-reference-modal" onMouseDown={(event) => event.target === event.currentTarget && closeReference()}>
+          <section className="day-reference-dialog" role="dialog" aria-modal="true" aria-labelledby="referenceDialogTitle" aria-describedby="referenceDialogDescription">
+            <header>
+              <div><p className="dashboard-overline dashboard-overline--blue">Day 12 reference</p><h2 id="referenceDialogTitle">Responsive portfolio example</h2></div>
+              <button type="button" onClick={closeReference} aria-label="Close reference image" autoFocus>×</button>
+            </header>
+            <div className="day-reference-dialog__image"><img src="/assets/day-12-portfolio-reference.png" alt="Full reference design showing a developer portfolio across desktop and mobile layouts" /></div>
+            <p id="referenceDialogDescription">Use the layout for direction, then personalise the colours, copy and projects to make the portfolio yours.</p>
+          </section>
+        </div>
+      )}
     </div>
   );
 }
