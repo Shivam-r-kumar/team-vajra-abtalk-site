@@ -990,4 +990,65 @@ hint: 'git pull' before pushing again.
 hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 ```
 
+## 21 — 2026-08-08 12:08:29 IST
+
+```text
+I need you to fully audit and fix this React project so it deploys correctly on Vercel.
+
+Repository:
+https://github.com/Shivam-r-kumar/team-vajra-abtalk-site
+
+Goal:
+Make the site production-ready and successfully deployable on Vercel with no build errors, routing errors, blank pages, or 404s.
+
+Please do the following:
+
+1. Inspect the complete repository first.
+2. Identify the framework and exact build setup (React/Vite/etc.).
+3. Run/install dependencies and test the production build locally.
+4. Fix every build error, import error, dependency issue, case-sensitive path issue, or configuration problem you find.
+5. Check package.json scripts and make sure:
+   - npm install works
+   - npm run build works successfully
+   - the correct production output directory is generated
+6. Inspect vite.config.js and simplify/fix the build configuration if anything unusual is causing deployment issues.
+7. Make the project compatible with Vercel.
+8. Add or fix vercel.json if needed.
+9. This is a React SPA, so make sure React Router/direct URL routes work on Vercel:
+   - refreshing a nested route must not give a 404
+   - routes should fall back to index.html where appropriate
+10. Check whether the correct Vercel Output Directory should be "dist" or something else. Prefer the standard Vite configuration if there is no real reason to use a custom output directory.
+11. Check for environment variables:
+   - find all import.meta.env / process.env usage
+   - do not hardcode secrets
+   - tell me which environment variables must be added in Vercel
+12. Check API/backend calls and ensure production URLs are not incorrectly pointing to localhost.
+13. Check assets, images, fonts, JSON files, and public paths so they work after deployment.
+14. Check BrowserRouter/base path configuration.
+15. Remove unnecessary deployment configuration that conflicts with Vercel/Vite defaults.
+16. Do not redesign the UI and do not change functionality unless required to fix a bug.
+17. Do not delete working features.
+18. After making the fixes, run:
+   npm install
+   npm run build
+   and confirm the build succeeds.
+19. If possible, also run the production preview and verify the app loads correctly.
+20. Review git diff before finishing and make sure only necessary changes were made.
+
+At the end, give me:
+- the root cause(s) of the deployment problem
+- every file you changed
+- the final Vercel settings I should use:
+  Framework Preset
+  Root Directory
+  Build Command
+  Output Directory
+  Install Command
+- any environment variables I need to add
+- exact git commands I should run to push the fixes
+
+IMPORTANT:
+Do not just explain what might be wrong. Actually inspect the code, edit the necessary files, run the build, fix failures, and keep iterating until npm run build succeeds.
+```
+
 
