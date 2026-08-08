@@ -17,18 +17,33 @@ const challenge = {
   ]
 };
 
-function getSavedCompletion() {
+const SUBMISSION_STORAGE_KEY = "abtalks-day-12-submission";
+
+function getSavedSubmission() {
   try {
-    return localStorage.getItem("abtalks-day-12-complete") === "true";
+    const storedSubmission = JSON.parse(localStorage.getItem(SUBMISSION_STORAGE_KEY));
+    if (storedSubmission) {
+      return {
+        completed: Boolean(storedSubmission.completed),
+        githubUrl: storedSubmission.githubUrl || "",
+        linkedinUrl: storedSubmission.linkedinUrl || ""
+      };
+    }
+    return {
+      completed: localStorage.getItem("abtalks-day-12-complete") === "true",
+      githubUrl: "",
+      linkedinUrl: ""
+    };
   } catch (error) {
-    return false;
+    return { completed: false, githubUrl: "", linkedinUrl: "" };
   }
 }
 
 export default function DayChallengePage() {
-  const [completed, setCompleted] = useState(getSavedCompletion);
-  const [githubUrl, setGithubUrl] = useState("");
-  const [linkedinUrl, setLinkedinUrl] = useState("");
+  const [savedSubmission] = useState(getSavedSubmission);
+  const [completed, setCompleted] = useState(savedSubmission.completed);
+  const [githubUrl, setGithubUrl] = useState(savedSubmission.githubUrl);
+  const [linkedinUrl, setLinkedinUrl] = useState(savedSubmission.linkedinUrl);
 
   useEffect(() => {
     document.title = `Day ${challenge.day}: ${challenge.title} — ABTalks`;
@@ -40,6 +55,7 @@ export default function DayChallengePage() {
     setCompleted(true);
     try {
       localStorage.setItem("abtalks-day-12-complete", "true");
+      localStorage.setItem(SUBMISSION_STORAGE_KEY, JSON.stringify({ completed: true, githubUrl, linkedinUrl }));
     } catch (error) {
       // Completion still works for the current session.
     }
@@ -59,6 +75,7 @@ export default function DayChallengePage() {
             <h1 id="challengeTitle">{challenge.title}</h1>
             <p>{challenge.brief}</p>
             <div className="challenge-meta" aria-label="Challenge details"><span><span className="meta-dot" aria-hidden="true" />{challenge.difficulty}</span><span><span className="meta-clock" aria-hidden="true" />{challenge.time}</span></div>
+            <a className="btn btn-primary day-submit-jump" href="#proofOfWork">Submit Your Work <span aria-hidden="true">↓</span></a>
           </div>
           <div className="day-hero__status" aria-label="Current challenge status">
             <span className="day-status__number">12</span>
@@ -88,10 +105,20 @@ export default function DayChallengePage() {
             </section>
           </div>
 
-          <aside className="submission-card" aria-labelledby="submissionTitle">
+          <aside className="submission-card" id="proofOfWork" aria-labelledby="submissionTitle">
             <div className="submission-card__head"><p className="dashboard-overline">Proof of work</p><h2 id="submissionTitle">Finish Day 12</h2><p>Demo submission — links stay on this device.</p></div>
             {completed ? (
-              <div className="completion-state" role="status"><span aria-hidden="true">✓</span><h3>Nice work, Shivam.</h3><p>Your Day 12 progress is marked complete on this device.</p><Link className="btn btn-primary" to="/dashboard">Return to dashboard</Link></div>
+              <div className="completion-state" role="status">
+                <span aria-hidden="true">✓</span>
+                <h3>Nice work, Shivam.</h3>
+                <p>Your Day 12 proof is saved on this device.</p>
+                <div className="saved-proof-links">
+                  {githubUrl ? <a href={githubUrl} target="_blank" rel="noreferrer">GitHub repository <span aria-hidden="true">↗</span></a> : null}
+                  {linkedinUrl ? <a href={linkedinUrl} target="_blank" rel="noreferrer">LinkedIn post <span aria-hidden="true">↗</span></a> : null}
+                </div>
+                <button className="btn btn-ghost" type="button" onClick={() => setCompleted(false)}>Edit Proof</button>
+                <Link className="btn btn-primary" to="/dashboard">Return to dashboard</Link>
+              </div>
             ) : (
               <form className="submission-form" onSubmit={completeChallenge}>
                 <label htmlFor="githubUrl">GitHub repository</label>
