@@ -731,30 +731,36 @@ a { color: inherit; text-decoration: none; }
 
 .night-sky {
   position: relative;
+  isolation: isolate;
   min-height: 240px;
+  border: 1px solid #ffffff0d;
   border-radius: var(--radius-xl);
   background: linear-gradient(170deg, #16223a 0%, #0d1424 100%);
   overflow: hidden;
   padding: var(--space-6);
+  box-shadow: inset 0 -80px 120px rgba(3, 8, 18, .15);
 }
 .moon { position: absolute; top: 22px; right: 26px; width: 74px; fill: #f2c879; opacity: 0.92; }
 .star {
   position: absolute;
-  width: 3px;
-  height: 3px;
+  z-index: 1;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: #ffffff;
-  opacity: 0.55;
+  background: #f7fbff;
+  opacity: 0.88;
+  box-shadow: 0 0 8px rgba(225, 238, 255, .7);
 }
-.s1 { top: 18%; left: 12%; }
-.s2 { top: 34%; left: 28%; }
-.s3 { top: 12%; left: 46%; }
-.s4 { top: 52%; left: 16%; opacity: 0.35; }
-.s5 { top: 26%; left: 68%; opacity: 0.3; }
-.s6 { top: 60%; left: 40%; opacity: 0.25; }
+.s1 { top: 17%; left: 12%; width: 6px; height: 6px; }
+.s2 { top: 34%; left: 28%; width: 4px; height: 4px; }
+.s3 { top: 12%; left: 46%; width: 7px; height: 7px; }
+.s4 { top: 53%; left: 16%; width: 4px; height: 4px; opacity: .72; }
+.s5 { top: 26%; left: 68%; width: 6px; height: 6px; opacity: .78; }
+.s6 { top: 61%; left: 40%; width: 4px; height: 4px; opacity: .68; }
 
 .night-card {
   position: absolute;
+  z-index: 2;
   left: var(--space-6);
   right: var(--space-6);
   bottom: var(--space-6);

@@ -21,14 +21,28 @@
 
 .css-moon {
   position: absolute;
-  top: 30px;
-  right: 35px;
-  width: 60px;
-  height: 60px;
-  border: 2px solid #f2c879;
+  z-index: 1;
+  top: 28px;
+  right: 38px;
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  border: 0;
   border-radius: 50%;
-  box-shadow: 18px -10px 0 -4px #111a2d, 18px -10px 0 -2px #f2c879;
-  transform: rotate(-15deg);
+  background: #f4cf78;
+  box-shadow: 0 0 24px rgba(244, 207, 120, .24);
+  transform: rotate(-8deg);
+}
+
+.css-moon::after {
+  content: "";
+  position: absolute;
+  width: 68px;
+  height: 68px;
+  top: -10px;
+  left: -17px;
+  border-radius: 50%;
+  background: #17243d;
 }
 
 .profile-nudge { display: flex; }

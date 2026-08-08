@@ -1181,4 +1181,28 @@ abe jyada bdi readme kar di thodi choti kar samjhne mei assan aur saari cheeze n
 ab site ko thoda advance bnate hai dashboard pe jaate hi phle baar ek popup aayega bas ek baar har device mei jo dekh rha hoga usme domain select karne ka option hoga domain hongi image mei domain hai jo select karega use uss hisab se challenges aayenge aur usse domain ke hisab se poora 30 challenges ke challenge bhi update honge today task bhi aur ek aur baat student ka poora data aaj konsa day hai achievements rank id submissions sab ek data folder bna aur json mei store kar aur poori site pe data isse json ke hisab se show hoga
 ```
 
+## 42 — 2026-08-08 15:10:27 IST — Improved late-night builder visual
+
+```text
+built for late night builder ka image sahi nhi hai
+```
+
+## 43 — 2026-08-08 15:14:01 IST — Restore original night sky visual
+
+```text
+bhai phle wala hi sahi tha night stars moon wala yeh beakr lag rha hai
+```
+
+## 44 — 2026-08-08 15:17:21 IST — Visible crescent moon, stars, and centered mobile domain popup
+
+```text
+abe issi ko sahi kar moon star dikh nhi rhe dekh image mei kya dikh rha hai aur 390 px pe domain change ka popup ki alignment problem thai right side jyada shift hai dekh ke sahi kar
+```
+
+## 45 — 2026-08-08 15:23:49 IST — Presentation-style project README
+
+```text
+bdiya ab iss project ke hisab se readme.md update kar shuru mei likh diyo mera team member ke ghar mei kuch problem aa gyi isliye voh contribute nhi kar paya aur sare feature thoda thoda explain kar like student apne domain ke hisab se challenge mei compete kar sakta hai iss hisab se website bnai hai like presentation de rhe hai
+```
+
 

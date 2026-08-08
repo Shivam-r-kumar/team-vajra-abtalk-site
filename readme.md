@@ -1,120 +1,119 @@
 # ABTalks 60-Day Coding Challenge
 
+> **Team Note:** This project was originally planned as a team effort. During the development period, one of my team members faced an unexpected family situation and was unable to contribute. I therefore completed the current design, development, data structure, responsive testing, and deployment preparation independently. This note is included for transparent project evaluation.
+
 ## Project Links
 
 | Resource | Link |
 | --- | --- |
 | Prompt history | [View `prompt.md`](./prompt/prompt.md) |
-| Vercel live site | [team-vajra-abtalk-site.vercel.app](https://team-vajra-abtalk-site.vercel.app/) |
+| Live website | [team-vajra-abtalk-site.vercel.app](https://team-vajra-abtalk-site.vercel.app/) |
 | GitHub repository | [Shivam-r-kumar/team-vajra-abtalk-site](https://github.com/Shivam-r-kumar/team-vajra-abtalk-site) |
 
-## About the Project
+## Project Overview
 
-This is a responsive React application for the ABTalks 60-Day Coding Challenge. It helps students build consistently, submit proof of work, track their progress, and stay connected with other learners.
+The ABTalks 60-Day Coding Challenge is a personalised learning and consistency platform for students and early-career professionals. It turns a long coding challenge into a clear daily routine: choose a domain, complete one practical task, submit proof of work, and track progress.
 
-The project includes a public landing page, a student dashboard, and a dedicated Day 12 challenge page.
+The main idea behind the website is that every student should compete and grow within the domain they want to pursue instead of receiving the same challenge as everyone else. The current experience supports four learning tracks:
 
-## Main Features
+- Claude AI Mastery
+- Software Engineering
+- Data Science
+- Artificial Intelligence
 
-### Landing Page
+Once a student selects a domain, the dashboard, today's task, and 30-day challenge history automatically adapt to that choice.
 
-- Explains the purpose of the 60-day challenge.
-- Shows how the daily Build, Push, and Share routine works.
-- Introduces ABTalks, founder Anil Bajpai, and the community's learning goals.
-- Includes direct links to the official ABTalks and founder LinkedIn profiles.
-- Uses a responsive layout that works on mobile, tablet, and desktop screens.
+## The Problem We Address
 
-### Student Dashboard
+Students often start learning challenges but lose consistency because tasks are not personalised, progress is difficult to measure, and there is little community motivation. This platform brings all three elements together:
 
-- Displays the student's current challenge, streak, completed days, and overall progress.
-- Shows achievements such as the first-week milestone and total projects built.
-- Includes a live countdown to midnight to help the student protect their streak.
-- Provides a direct link to continue the current challenge.
+- **Personalised learning** through domain-specific challenges.
+- **Visible progress** through streaks, achievements, and challenge history.
+- **Healthy competition** through rankings, submissions, and community interactions.
 
-### Personalised Learning Domains
+## How the Experience Works
 
-- A first-visit popup asks the student to select Claude AI Mastery, Software Engineering, Data Science, or Artificial Intelligence.
-- The choice is saved once on the device and can be changed later from the dashboard.
-- Today's task and the complete 30-day history update for the selected domain.
-- Every domain contains 30 separate challenge titles and descriptions.
+1. The student visits the landing page and learns about the 60-day challenge.
+2. On the first dashboard visit, the student selects a learning domain.
+3. The dashboard loads the student's domain-specific daily challenge and progress.
+4. The student completes the task and submits GitHub and LinkedIn proof of work.
+5. Progress, streaks, achievements, history, and ranking help the student stay consistent.
 
-### Challenge Submission
+## Feature Highlights
 
-- The student can open the Day 12 challenge and review its requirements.
-- A portfolio reference image is available and opens in a larger popup when clicked.
-- The `Submit Your Work` button moves the student directly to the proof-of-work form.
-- The student can submit a GitHub repository link and a LinkedIn progress-post link.
-- Submitted proof is saved in the current browser and remains available after refresh.
-- The student can reopen saved links or edit the submission.
+### 1. Domain-Based Challenge Experience
 
-### 30-Day Progress History
+The first-time domain popup lets the student choose the field in which they want to compete. The selection is saved on the device and can be changed later from the dashboard. Changing the domain updates today's challenge as well as the complete 30-day roadmap.
 
-- `View more` is available in both the progress card and journey section.
-- It opens a 30-day history with individual day circles.
-- Every day is marked as done or not done.
-- Clicking a day opens its challenge title, description, completion state, and submission status.
-- Completed days include a `View submission` link.
+### 2. Personalised Student Dashboard
 
-### Ranking and Community
+The dashboard provides a quick view of the student's current day, active challenge, selected domain, completion percentage, streak, achievements, student ID, and rank. This gives the student one central place to understand what to do next.
 
-- The dashboard displays the student's rank and overall standing.
-- `View more` opens the community leaderboard.
-- The leaderboard shows top submissions for the current challenge.
-- Friends are arranged in ascending rank order.
-- The current student also appears in the friends list with a `You` label.
-- Submitted friends have a `View submission` action.
-- Their profile popup shows their About section, GitHub, LinkedIn, submission, and Connect option.
-- Friends who have not submitted can be nudged inside the platform.
-- After clicking `Nudge`, the button immediately confirms that the message was sent successfully.
+### 3. JSON-Driven Data
 
-### Theme and Responsive Design
+Student information, achievements, submissions, community profiles, and domain challenges are organised in JSON data files. The interface reads from this data so the same information stays consistent across the dashboard, challenge page, progress history, and ranking experience.
 
-- Dark mode is the default theme.
-- Users can switch between dark and light modes.
-- The selected theme is saved in the browser.
-- Separate logo versions keep the ABTalks branding clear in both themes.
-- The interface is designed to work at a 390px mobile width as well as on larger screens.
+### 4. Daily Challenge and Proof of Work
 
-## User Flow
+Each challenge includes its title, description, difficulty, estimated time, requirements, and a visual reference where needed. The student can submit a GitHub repository and LinkedIn progress post as proof of work. Saved submission links can be viewed or edited later.
 
-1. Open the landing page and learn about the challenge.
-2. Enter the student dashboard.
-3. Review the current challenge, progress, streak, and ranking.
-4. Open Day 12 and complete the portfolio task.
-5. Submit GitHub and LinkedIn proof of work.
-6. Return to the dashboard and review the 30-day journey or community leaderboard.
+### 5. 30-Day Progress History
 
-## Routes
+The progress and journey cards include a `View more` option. It opens a 30-day record showing completed, current, and upcoming days. Selecting a day reveals the challenge details and submission status for that specific day.
+
+### 6. Ranking and Community Competition
+
+The standing section shows the student's rank among other participants. Its detailed view includes top submissions and friends arranged by ascending rank. Students can inspect a participant's submission and profile, send a connection request, or nudge friends who have not submitted yet.
+
+### 7. Streaks and Achievements
+
+Daily streaks, progress percentages, completed-day counts, milestone badges, and a countdown to midnight encourage students to return and finish their work consistently.
+
+### 8. Responsive Dark and Light Themes
+
+Dark mode is the default experience, with an optional light theme. The layout, navigation, domain selection popup, challenge cards, and dashboard are responsive for desktop, tablet, and mobile screens, including a 390px viewport.
+
+### 9. ABTalks Introduction
+
+The landing page explains the ABTalks mission, introduces founder Anil Bajpai, and connects practical AI education with technology, leadership, career readiness, and community learning.
+
+## Main Routes
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Landing page and About section |
-| `/dashboard` | Student progress, ranking, achievements, and journey |
-| `/day/12` | Day 12 challenge and proof-of-work submission |
+| `/` | Landing page, challenge introduction, and ABTalks information |
+| `/dashboard` | Personalised challenge, progress, achievements, and ranking |
+| `/day/12` | Challenge details and proof-of-work submission |
 
-Unknown routes automatically return to the home page. Direct route refreshes work on Vercel through the SPA rewrite in `vercel.json`.
+Direct route refreshes work on Vercel through the SPA rewrite configuration.
 
-## Technology
+## Technology Used
 
 - React 19
 - React Router
 - Vite 8
 - JavaScript and JSX
 - Custom responsive CSS
+- JSON-based demo data
 - Browser local storage
-- Vercel hosting
+- Vercel deployment
 
-The current project does not require a backend, database, or environment variables.
+## Project Structure
 
-## Run the Project Locally
+```text
+src/pages/                 Main application pages
+src/components/            Shared navigation and UI components
+src/data/student.json      Student progress, rank, and achievements
+src/data/community.json    Friends and leaderboard information
+src/data/domains.json      Four domains with 30 challenges each
+css/styles.css             Landing-page and global styling
+dashboard/dashboard.css    Dashboard and popup styling
+public/assets/             Logos, images, and challenge references
+prompt/prompt.md           Timestamped development prompt history
+vercel.json                Vercel build and SPA routing configuration
+```
 
-### Requirements
-
-- Node.js 24.x
-- npm
-- Git
-
-### Installation
+## Run Locally
 
 ```bash
 git clone https://github.com/Shivam-r-kumar/team-vajra-abtalk-site.git
@@ -123,13 +122,7 @@ npm install
 npm run dev
 ```
 
-Open the local address shown in the terminal. By default, the project runs at:
-
-```text
-http://127.0.0.1:3000/
-```
-
-Do not open `index.html` directly. The application should be started through Vite with `npm run dev`.
+Open the local URL shown in the terminal. The project must be started through Vite; opening `index.html` directly will not run the React application correctly.
 
 ## Production Build
 
@@ -138,43 +131,9 @@ npm run build
 npm run preview
 ```
 
-The production build is generated inside the `dist` folder.
+The production output is generated in the `dist` directory.
 
-## Important Project Files
-
-```text
-src/pages/LandingPage.jsx       Landing page and About content
-src/pages/DashboardPage.jsx     Dashboard, ranking, profiles, and history
-src/pages/DayChallengePage.jsx  Day 12 task and submission form
-src/components/SiteHeader.jsx   Shared navigation
-src/theme.jsx                   Dark/light theme handling
-src/domain.jsx                  Saved domain selection and active track
-src/data/student.json           Student ID, day, achievements, rank, and submissions
-src/data/community.json         Friends and leaderboard profiles
-src/data/domains.json           Four domains with 30 challenges each
-css/styles.css                  Global and landing-page styles
-dashboard/dashboard.css         Dashboard and popup styles
-src/app.css                     Day 12 challenge styles
-public/assets/                  Logos, founder image, and task reference
-prompt/prompt.md                Timestamped prompt history
-vercel.json                     Vercel build and route configuration
-```
-
-## Saved Browser Data
-
-The demo saves only the following information:
-
-- Selected dark or light theme
-- Selected learning domain
-- Day 12 completion status
-- Submitted GitHub link
-- Submitted LinkedIn link
-
-Nudges and connection requests are demonstration interactions and reset after a page refresh.
-
-## Vercel Deployment
-
-Use these settings when importing the repository into Vercel:
+## Vercel Settings
 
 | Setting | Value |
 | --- | --- |
@@ -184,14 +143,10 @@ Use these settings when importing the repository into Vercel:
 | Build Command | `npm run build` |
 | Output Directory | `dist` |
 
-The output directory must be `dist`, not `client`.
-
 ## Current Demo Scope
 
-- Only Day 12 currently has a complete challenge page.
-- The journey popup shows 30 domain-specific challenges.
-- Student, ranking, achievement, and friend data are sample data stored in the React code.
-- Submission proof is stored only in the current browser.
-- Nudge and Connect actions show the intended experience but are not connected to a real messaging service or backend.
+This version demonstrates the complete product experience without a backend. Theme, domain selection, and proof-of-work data are stored in the current browser. Student, challenge, and leaderboard information use structured demo JSON. In a production version, these features can be connected to authentication, a database, real messaging, and official ABTalks student accounts.
 
-These features can later be connected to authentication, a database, and real ABTalks community accounts.
+## Presentation Summary
+
+This project is more than a progress dashboard. It demonstrates how a coding challenge can become a personalised learning system where students compete in their chosen domain, build consistently, prove their work publicly, compare progress with peers, and develop an industry-ready portfolio over 60 days.
