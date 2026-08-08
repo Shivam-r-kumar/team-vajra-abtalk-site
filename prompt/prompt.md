@@ -1175,4 +1175,10 @@ ab iss poore project ki detail readme.md mei daal de scratch se samjhe har featu
 abe jyada bdi readme kar di thodi choti kar samjhne mei assan aur saari cheeze nhi samjhani imp cheeze like feature sturdent submit kar sata hai 30 din ki histroy dekh sakta hai ranking etc
 ```
 
+## 41 — 2026-08-08 14:45:25 IST — Domain onboarding and JSON-driven student data
+
+```text
+ab site ko thoda advance bnate hai dashboard pe jaate hi phle baar ek popup aayega bas ek baar har device mei jo dekh rha hoga usme domain select karne ka option hoga domain hongi image mei domain hai jo select karega use uss hisab se challenges aayenge aur usse domain ke hisab se poora 30 challenges ke challenge bhi update honge today task bhi aur ek aur baat student ka poora data aaj konsa day hai achievements rank id submissions sab ek data folder bna aur json mei store kar aur poori site pe data isse json ke hisab se show hoga
+```
+
 

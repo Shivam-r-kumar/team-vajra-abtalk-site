@@ -1,0 +1,41 @@
+{
+  "id": "ABT-2026-0142",
+  "slug": "shivam",
+  "name": "Shivam Kumar",
+  "displayName": "Shivam",
+  "initials": "SK",
+  "currentDay": 12,
+  "totalDays": 60,
+  "historyDays": 30,
+  "completedDays": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+  "currentStreak": 11,
+  "projectsBuilt": 10,
+  "rank": 142,
+  "totalStudents": 820,
+  "standingPercent": 18,
+  "missedYesterday": false,
+  "profile": {
+    "title": "Responsive portfolio website",
+    "about": "Learning in public, building one practical project every day, and sharing the process with the ABTalks community.",
+    "githubHref": "https://github.com/Shivam-r-kumar",
+    "linkedinHref": "https://www.linkedin.com/"
+  },
+  "achievements": [
+    { "id": "streak", "icon": "fire", "title": "11 Day Streak", "description": "Keep it going", "style": "streak" },
+    { "id": "first-week", "icon": "medal", "title": "First Week", "description": "Milestone earned", "style": "week" },
+    { "id": "projects", "icon": "laptop", "title": "10 Projects", "description": "Built so far", "style": "projects" }
+  ],
+  "submissions": [
+    { "day": 1, "status": "submitted", "repositoryUrl": "https://github.com/Shivam-r-kumar?tab=repositories", "linkedinUrl": "https://www.linkedin.com/" },
+    { "day": 2, "status": "submitted", "repositoryUrl": "https://github.com/Shivam-r-kumar?tab=repositories", "linkedinUrl": "https://www.linkedin.com/" },
+    { "day": 3, "status": "submitted", "repositoryUrl": "https://github.com/Shivam-r-kumar?tab=repositories", "linkedinUrl": "https://www.linkedin.com/" },
+    { "day": 4, "status": "submitted", "repositoryUrl": "https://github.com/Shivam-r-kumar?tab=repositories", "linkedinUrl": "https://www.linkedin.com/" },
+    { "day": 5, "status": "submitted", "repositoryUrl": "https://github.com/Shivam-r-kumar?tab=repositories", "linkedinUrl": "https://www.linkedin.com/" },
+    { "day": 6, "status": "submitted", "repositoryUrl": "https://github.com/Shivam-r-kumar?tab=repositories", "linkedinUrl": "https://www.linkedin.com/" },
+    { "day": 7, "status": "submitted", "repositoryUrl": "https://github.com/Shivam-r-kumar?tab=repositories", "linkedinUrl": "https://www.linkedin.com/" },
+    { "day": 8, "status": "submitted", "repositoryUrl": "https://github.com/Shivam-r-kumar?tab=repositories", "linkedinUrl": "https://www.linkedin.com/" },
+    { "day": 9, "status": "submitted", "repositoryUrl": "https://github.com/Shivam-r-kumar?tab=repositories", "linkedinUrl": "https://www.linkedin.com/" },
+    { "day": 10, "status": "submitted", "repositoryUrl": "https://github.com/Shivam-r-kumar?tab=repositories", "linkedinUrl": "https://www.linkedin.com/" },
+    { "day": 11, "status": "submitted", "repositoryUrl": "https://github.com/Shivam-r-kumar?tab=repositories", "linkedinUrl": "https://www.linkedin.com/" }
+  ]
+}

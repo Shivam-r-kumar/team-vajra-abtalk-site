@@ -31,6 +31,13 @@ The project includes a public landing page, a student dashboard, and a dedicated
 - Includes a live countdown to midnight to help the student protect their streak.
 - Provides a direct link to continue the current challenge.
 
+### Personalised Learning Domains
+
+- A first-visit popup asks the student to select Claude AI Mastery, Software Engineering, Data Science, or Artificial Intelligence.
+- The choice is saved once on the device and can be changed later from the dashboard.
+- Today's task and the complete 30-day history update for the selected domain.
+- Every domain contains 30 separate challenge titles and descriptions.
+
 ### Challenge Submission
 
 - The student can open the Day 12 challenge and review its requirements.
@@ -141,6 +148,10 @@ src/pages/DashboardPage.jsx     Dashboard, ranking, profiles, and history
 src/pages/DayChallengePage.jsx  Day 12 task and submission form
 src/components/SiteHeader.jsx   Shared navigation
 src/theme.jsx                   Dark/light theme handling
+src/domain.jsx                  Saved domain selection and active track
+src/data/student.json           Student ID, day, achievements, rank, and submissions
+src/data/community.json         Friends and leaderboard profiles
+src/data/domains.json           Four domains with 30 challenges each
 css/styles.css                  Global and landing-page styles
 dashboard/dashboard.css         Dashboard and popup styles
 src/app.css                     Day 12 challenge styles
@@ -154,6 +165,7 @@ vercel.json                     Vercel build and route configuration
 The demo saves only the following information:
 
 - Selected dark or light theme
+- Selected learning domain
 - Day 12 completion status
 - Submitted GitHub link
 - Submitted LinkedIn link
@@ -177,7 +189,7 @@ The output directory must be `dist`, not `client`.
 ## Current Demo Scope
 
 - Only Day 12 currently has a complete challenge page.
-- The journey popup demonstrates the first 30 days.
+- The journey popup shows 30 domain-specific challenges.
 - Student, ranking, achievement, and friend data are sample data stored in the React code.
 - Submission proof is stored only in the current browser.
 - Nudge and Connect actions show the intended experience but are not connected to a real messaging service or backend.

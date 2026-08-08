@@ -1,163 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import DomainPicker from "../components/DomainPicker";
 import SiteHeader from "../components/SiteHeader";
+import { useDomain } from "../domain";
+import { communityData, getChallengeForDay, getStudentSubmission, studentData } from "../data";
 
-const dashboardData = {
-  student: {
-    name: "Shivam",
-    initials: "SK",
-    currentDay: 12,
-    totalDays: 60,
-    completedDays: 11,
-    currentStreak: 11,
-    projectsBuilt: 10,
-    rank: 142,
-    totalStudents: 820,
-    standingPercent: 18,
-    missedYesterday: false
-  },
-  challenge: {
-    day: 12,
-    title: "Build a Responsive Portfolio Website",
-    difficulty: "Intermediate",
-    estimatedTime: "~45 min",
-    description: "Create a responsive portfolio that showcases your work, skills, and contact information."
-  }
-};
-
-const communityProfiles = {
-  shivam: {
-    id: "shivam",
-    name: "Shivam Kumar",
-    initials: "SK",
-    rank: 142,
-    title: "Responsive portfolio website",
-    about: "Learning in public, building one practical project every day, and sharing the process with the ABTalks community.",
-    githubHref: "https://github.com/Shivam-r-kumar",
-    linkedinHref: "https://www.linkedin.com/",
-    submissionHref: "https://github.com/Shivam-r-kumar",
-    submitted: true,
-    isCurrentUser: true
-  },
-  aanya: {
-    id: "aanya",
-    name: "Aanya Sharma",
-    initials: "AS",
-    rank: 1,
-    title: "Editorial developer portfolio",
-    about: "Frontend developer focused on accessible interfaces, thoughtful typography, and small details that make products feel effortless.",
-    githubHref: "https://github.com/topics/react-portfolio",
-    linkedinHref: "https://www.linkedin.com/",
-    submissionHref: "https://github.com/topics/react-portfolio",
-    submitted: true
-  },
-  dev: {
-    id: "dev",
-    name: "Dev Malhotra",
-    initials: "DM",
-    rank: 2,
-    title: "Motion-first personal website",
-    about: "Creative developer exploring motion, interaction design, and React experiences that stay fast on every device.",
-    githubHref: "https://github.com/topics/developer-portfolio",
-    linkedinHref: "https://www.linkedin.com/",
-    submissionHref: "https://github.com/topics/developer-portfolio",
-    submitted: true
-  },
-  meera: {
-    id: "meera",
-    name: "Meera Iyer",
-    initials: "MI",
-    rank: 3,
-    title: "Accessible product portfolio",
-    about: "Product-minded engineer who enjoys turning complex ideas into clear, inclusive, and responsive web experiences.",
-    githubHref: "https://github.com/topics/portfolio",
-    linkedinHref: "https://www.linkedin.com/",
-    submissionHref: "https://github.com/topics/portfolio",
-    submitted: true
-  },
-  riya: {
-    id: "riya",
-    name: "Riya",
-    initials: "R",
-    rank: 86,
-    title: "Playful frontend portfolio",
-    about: "Design learner and frontend builder experimenting with color, layout, and friendly interactions through daily challenges.",
-    githubHref: "https://github.com/topics/react-portfolio",
-    linkedinHref: "https://www.linkedin.com/",
-    submissionHref: "https://github.com/topics/react-portfolio",
-    submitted: true
-  },
-  aditya: {
-    id: "aditya",
-    name: "Aditya",
-    initials: "A",
-    rank: 205,
-    title: "Developer portfolio system",
-    about: "JavaScript developer building reusable UI systems and using the 60-day challenge to improve consistency.",
-    githubHref: "https://github.com/topics/developer-portfolio",
-    linkedinHref: "https://www.linkedin.com/",
-    submissionHref: "https://github.com/topics/developer-portfolio",
-    submitted: true
-  },
-  neha: { id: "neha", name: "Neha", initials: "N", submitted: false },
-  kabir: { id: "kabir", name: "Kabir", initials: "K", submitted: false }
-};
-
-const topSubmissions = [communityProfiles.aanya, communityProfiles.dev, communityProfiles.meera];
-const friendStandings = [communityProfiles.shivam, communityProfiles.riya, communityProfiles.aditya, communityProfiles.neha, communityProfiles.kabir]
-  .sort((firstFriend, secondFriend) => {
-    if (firstFriend.rank == null && secondFriend.rank == null) return 0;
-    if (firstFriend.rank == null) return 1;
-    if (secondFriend.rank == null) return -1;
-    return firstFriend.rank - secondFriend.rank;
-  });
-
-const journeyChallengeTitles = [
-  "Create Your Personal Introduction Page",
-  "Build a Profile Card Component",
-  "Design a Landing Page Hero",
-  "Create a Responsive Navigation Bar",
-  "Build a Pricing Cards Section",
-  "Design an Accessible Contact Form",
-  "Create a Simple To-Do App",
-  "Build a Weather Dashboard",
-  "Create a JavaScript Calculator",
-  "Design a Product Landing Page",
-  "Build a Responsive Blog Layout",
-  "Build a Responsive Portfolio Website",
-  "Create an Interactive Quiz App",
-  "Build an Expense Tracker",
-  "Create a Movie Search Experience",
-  "Build a Notes App",
-  "Create a Habit Tracker",
-  "Build a Recipe Finder",
-  "Design a Chat Interface",
-  "Create a Kanban Task Board",
-  "Build an E-commerce Product Grid",
-  "Create an Analytics Dashboard",
-  "Build a Student Job Board",
-  "Design an Event Booking Flow",
-  "Create a Markdown Editor",
-  "Build an Authentication Interface",
-  "Create an Admin Dashboard",
-  "Improve Web Performance",
-  "Run an Accessibility Audit",
-  "Ship Your Capstone Project"
-];
-
-const journeyRecords = journeyChallengeTitles.map((title, index) => {
-  const day = index + 1;
-  return {
-    day,
-    title,
-    done: day <= 11,
-    isToday: day === 12,
-    brief: day === 12
-      ? "Create a responsive portfolio that introduces you, showcases your best work, and makes it easy for someone to contact you."
-      : `Build and ship ${title.toLowerCase()} with a clean responsive layout and a clear proof of work.`,
-    submissionHref: day <= 11 ? "https://github.com/Shivam-r-kumar?tab=repositories" : null
-  };
-});
+const achievementIcons = { fire: "🔥", medal: "🏅", laptop: "💻" };
 
 function getTimeLeft() {
   const now = new Date();
@@ -179,7 +27,9 @@ function useMidnightCountdown() {
 }
 
 export default function DashboardPage() {
-  const { student, challenge } = dashboardData;
+  const student = studentData;
+  const { domains, activeDomain, selectedDomainId, hasSelectedDomain, selectDomain } = useDomain();
+  const [domainPickerOpen, setDomainPickerOpen] = useState(!hasSelectedDomain);
   const [standingOpen, setStandingOpen] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [connectionRequests, setConnectionRequests] = useState([]);
@@ -191,12 +41,59 @@ export default function DashboardPage() {
   const journeyTriggerRef = useRef(null);
   const journeyDayTriggerRef = useRef(null);
   const timeLeft = useMidnightCountdown();
+  const completedCount = student.completedDays.length;
+  const challenge = useMemo(() => getChallengeForDay(activeDomain, student.currentDay), [activeDomain, student.currentDay]);
+  const communityProfiles = useMemo(() => {
+    const profiles = Object.fromEntries(communityData.profiles.map((profile) => [profile.id, profile]));
+    const latestSubmission = getStudentSubmission(student.completedDays.at(-1));
+    profiles[student.slug] = {
+      id: student.slug,
+      name: student.name,
+      initials: student.initials,
+      rank: student.rank,
+      title: challenge.title,
+      about: student.profile.about,
+      githubHref: student.profile.githubHref,
+      linkedinHref: student.profile.linkedinHref,
+      submissionHref: latestSubmission?.repositoryUrl || student.profile.githubHref,
+      submitted: true,
+      isCurrentUser: true
+    };
+    return profiles;
+  }, [challenge.title, student]);
+  const topSubmissions = useMemo(() => communityData.topSubmissionIds.map((id) => communityProfiles[id] ? { ...communityProfiles[id], title: challenge.title } : null).filter(Boolean), [challenge.title, communityProfiles]);
+  const friendStandings = useMemo(() => communityData.friendIds
+    .map((id) => communityProfiles[id])
+    .filter(Boolean)
+    .map((profile) => profile.submitted ? { ...profile, title: challenge.title } : profile)
+    .sort((firstFriend, secondFriend) => {
+      if (firstFriend.rank == null && secondFriend.rank == null) return 0;
+      if (firstFriend.rank == null) return 1;
+      if (secondFriend.rank == null) return -1;
+      return firstFriend.rank - secondFriend.rank;
+    }), [challenge.title, communityProfiles]);
+  const journeyRecords = useMemo(() => activeDomain.challenges.slice(0, student.historyDays).map((item) => {
+    const submission = getStudentSubmission(item.day);
+    return {
+      ...item,
+      done: student.completedDays.includes(item.day),
+      isToday: item.day === student.currentDay,
+      submissionHref: submission?.repositoryUrl || null
+    };
+  }), [activeDomain, student]);
   const progressPercent = Math.round((student.currentDay / student.totalDays) * 100);
-  const completedPercent = (student.completedDays / student.totalDays) * 100;
-  const journey = useMemo(() => [9, 10, 11, 12, 13].map((day) => ({
-    day,
-    state: day < student.currentDay ? "done" : day === student.currentDay ? "today" : "upcoming"
-  })), [student.currentDay]);
+  const completedPercent = (completedCount / student.totalDays) * 100;
+  const journey = useMemo(() => Array.from({ length: 5 }, (_, index) => Math.max(1, student.currentDay - 3) + index)
+    .filter((day) => day <= student.totalDays)
+    .map((day) => ({
+      day,
+      state: student.completedDays.includes(day) ? "done" : day === student.currentDay ? "today" : "upcoming"
+    })), [student.completedDays, student.currentDay, student.totalDays]);
+
+  const chooseDomain = (domainId) => {
+    selectDomain(domainId);
+    setDomainPickerOpen(false);
+  };
 
   useEffect(() => {
     if (!standingOpen) return undefined;
@@ -307,10 +204,13 @@ export default function DashboardPage() {
         <section className="dashboard-greeting" aria-labelledby="greetingTitle">
           <div>
             <p className="dashboard-overline">Student dashboard</p>
-            <h1 id="greetingTitle">Good evening{student.name ? `, ${student.name}` : ""} <span aria-hidden="true">👋</span></h1>
+            <h1 id="greetingTitle">Good evening{student.displayName ? `, ${student.displayName}` : ""} <span aria-hidden="true">👋</span></h1>
             <p>{student.missedYesterday ? "You missed yesterday, but your journey isn’t over. Start today and keep moving." : "Keep showing up. Great things take time."}</p>
           </div>
-          <p className="dashboard-date">{new Intl.DateTimeFormat(undefined, { weekday: "long", month: "short", day: "numeric" }).format(new Date())}</p>
+          <div className="dashboard-greeting__actions">
+            <p className="dashboard-date">{new Intl.DateTimeFormat(undefined, { weekday: "long", month: "short", day: "numeric" }).format(new Date())}</p>
+            <button className="domain-switch" type="button" onClick={() => setDomainPickerOpen(true)} aria-haspopup="dialog"><span aria-hidden="true">{activeDomain.symbol}</span><b>{activeDomain.name}</b><small>Change</small></button>
+          </div>
         </section>
 
         <div className="dashboard-layout">
@@ -319,15 +219,15 @@ export default function DashboardPage() {
               <p className="dashboard-overline dashboard-overline--blue">Today’s challenge</p>
               <article className="challenge-card">
                 <div className="challenge-card__content">
-                  <div className="challenge-day-row"><span className="day-chip">Day {challenge.day}</span><span className="challenge-status"><span aria-hidden="true" /> Ready when you are</span></div>
+                  <div className="challenge-day-row"><div className="challenge-card__chips"><span className="day-chip">Day {challenge.day}</span><span className="domain-chip">{activeDomain.shortName}</span></div><span className="challenge-status"><span aria-hidden="true" /> Ready when you are</span></div>
                   <h2 id="todayTitle">{challenge.title}</h2>
                   <div className="challenge-meta" aria-label="Challenge details"><span><span className="meta-dot" aria-hidden="true" />{challenge.difficulty}</span><span><span className="meta-clock" aria-hidden="true" />{challenge.estimatedTime}</span></div>
-                  <p className="challenge-description">{challenge.description}</p>
+                  <p className="challenge-description">{challenge.brief}</p>
                   <Link className="btn btn-primary challenge-cta" to={`/day/${challenge.day}`}>Continue Day {challenge.day}<span className="cta-arrow" aria-hidden="true">→</span></Link>
                 </div>
                 <div className="challenge-visual" aria-hidden="true">
                   <div className="visual-browser"><div className="visual-browser__bar"><i /><i /><i /></div><div className="visual-browser__body"><span className="visual-kicker" /><span className="visual-title" /><span className="visual-title visual-title--short" /><div className="visual-grid"><i /><i /><i /></div></div></div>
-                  <div className="visual-phone"><i /><span /><span /><span /></div><div className="visual-code">&lt;/&gt;</div>
+                  <div className="visual-phone"><i /><span /><span /><span /></div><div className="visual-code">{activeDomain.symbol}</div>
                 </div>
               </article>
             </section>
@@ -343,7 +243,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="progress-copy"><p className="streak-line"><span aria-hidden="true">🔥</span>{student.currentStreak ? `${student.currentStreak} Day Streak` : "Your first streak starts today"}</p><p className="progress-encouragement">You’re building real momentum.</p></div>
               </div>
-              <div className="linear-progress"><div className="linear-progress__labels"><strong>{progressPercent}% complete</strong><span>{student.completedDays} completed days</span></div><div className="linear-progress__track" role="progressbar" aria-label="Days completed" aria-valuemin="0" aria-valuemax={student.totalDays} aria-valuenow={student.completedDays}><span style={{ width: `${completedPercent}%` }} /></div></div>
+              <div className="linear-progress"><div className="linear-progress__labels"><strong>{progressPercent}% complete</strong><span>{completedCount} completed days</span></div><div className="linear-progress__track" role="progressbar" aria-label="Days completed" aria-valuemin="0" aria-valuemax={student.totalDays} aria-valuenow={completedCount}><span style={{ width: `${completedPercent}%` }} /></div></div>
             </section>
 
             <section className="rescue-card" aria-labelledby="rescueTitle">
@@ -353,7 +253,7 @@ export default function DashboardPage() {
             </section>
 
             <section className="journey-section" id="journey" aria-labelledby="journeyTitle">
-              <div className="section-heading-row"><div><p className="dashboard-overline">Progress</p><h2 id="journeyTitle">Your Journey</h2></div><div className="journey-heading-actions"><span>{student.completedDays} / {student.totalDays} days</span><button type="button" onClick={openJourney} aria-haspopup="dialog">View more <span aria-hidden="true">→</span></button></div></div>
+              <div className="section-heading-row"><div><p className="dashboard-overline">{activeDomain.name}</p><h2 id="journeyTitle">Your Journey</h2></div><div className="journey-heading-actions"><span>{completedCount} / {student.totalDays} days</span><button type="button" onClick={openJourney} aria-haspopup="dialog">View more <span aria-hidden="true">→</span></button></div></div>
               <ol className="journey-stepper" aria-label="Recent challenge days">
                 {journey.map(({ day, state }) => {
                   const stateLabel = state === "done" ? "Done" : state === "today" ? "Today" : "Upcoming";
@@ -367,9 +267,7 @@ export default function DashboardPage() {
             <section className="achievements-section" aria-labelledby="achievementsTitle">
               <div className="section-heading-row"><div><p className="dashboard-overline">Milestones</p><h2 id="achievementsTitle">Achievements</h2></div></div>
               <div className="achievements-grid">
-                <article className="achievement achievement--streak"><span className="achievement__icon" aria-hidden="true">🔥</span><p><strong>{student.currentStreak} Day Streak</strong><span>Keep it going</span></p></article>
-                <article className="achievement achievement--week"><span className="achievement__icon" aria-hidden="true">🏅</span><p><strong>First Week</strong><span>Milestone earned</span></p></article>
-                <article className="achievement achievement--projects"><span className="achievement__icon" aria-hidden="true">💻</span><p><strong>{student.projectsBuilt} Projects</strong><span>Built so far</span></p></article>
+                {student.achievements.map((achievement) => <article className={`achievement achievement--${achievement.style}`} key={achievement.id}><span className="achievement__icon" aria-hidden="true">{achievementIcons[achievement.icon]}</span><p><strong>{achievement.title}</strong><span>{achievement.description}</span></p></article>)}
               </div>
             </section>
             <section className="standing-card" aria-labelledby="standingTitle">
@@ -383,10 +281,12 @@ export default function DashboardPage() {
                 View more <span aria-hidden="true">→</span>
               </button>
             </section>
-            <section className="profile-nudge" id="profile"><div><h2>Profile ready</h2><p>Your challenge progress is connected to Shivam.</p></div><Link to="/">ABTalks home</Link></section>
+            <section className="profile-nudge" id="profile"><div><h2>Profile ready</h2><p>{student.id} · {activeDomain.name}</p></div><Link to="/">ABTalks home</Link></section>
           </aside>
         </div>
       </main>
+
+      {domainPickerOpen && <DomainPicker domains={domains} currentDomainId={selectedDomainId} onSelect={chooseDomain} onClose={() => setDomainPickerOpen(false)} required={!hasSelectedDomain} />}
 
       {standingOpen && (
         <div className="leaderboard-modal" onMouseDown={(event) => event.target === event.currentTarget && closeStanding()}>
@@ -395,7 +295,7 @@ export default function DashboardPage() {
               <div>
                 <p className="dashboard-overline dashboard-overline--blue">Community leaderboard</p>
                 <h2 id="leaderboardTitle">Rankings & submissions</h2>
-                <p id="leaderboardDescription">See standout work and check how your friends are doing today.</p>
+                <p id="leaderboardDescription">See standout {activeDomain.name} work and check how your friends are doing today.</p>
               </div>
               <button className="leaderboard-close" type="button" onClick={closeStanding} aria-label="Close rankings" autoFocus>×</button>
             </header>
@@ -487,7 +387,7 @@ export default function DashboardPage() {
         <div className="journey-modal" onMouseDown={(event) => event.target === event.currentTarget && closeJourney()}>
           <section className="journey-dialog" role="dialog" aria-modal="true" aria-labelledby="journeyDialogTitle" aria-describedby="journeyDialogDescription" aria-hidden={selectedJourneyDay ? true : undefined} inert={selectedJourneyDay ? true : undefined}>
             <header className="journey-dialog__header">
-              <div><p className="dashboard-overline dashboard-overline--blue">30-day record</p><h2 id="journeyDialogTitle">Your challenge journey</h2><p id="journeyDialogDescription">Select any day to see its challenge and submission record.</p></div>
+              <div><p className="dashboard-overline dashboard-overline--blue">30-day · {activeDomain.name}</p><h2 id="journeyDialogTitle">Your challenge journey</h2><p id="journeyDialogDescription">Select any day to see its challenge and submission record.</p></div>
               <button className="leaderboard-close" type="button" onClick={closeJourney} aria-label="Close journey record" autoFocus>×</button>
             </header>
 
@@ -512,7 +412,7 @@ export default function DashboardPage() {
                   <button className="leaderboard-close" type="button" onClick={closeJourneyDay} aria-label={`Close Day ${selectedJourneyDay.day} details`} autoFocus>×</button>
                 </header>
                 <div className="journey-detail-copy"><h2 id="journeyDayTitle">{selectedJourneyDay.title}</h2><p id="journeyDayDescription">{selectedJourneyDay.brief}</p></div>
-                <div className="journey-detail-meta"><span>Day {selectedJourneyDay.day} of 60</span><span>{selectedJourneyDay.done ? "Proof submitted" : selectedJourneyDay.isToday ? "Today’s challenge" : "Submission pending"}</span></div>
+                <div className="journey-detail-meta"><span>Day {selectedJourneyDay.day} of {student.totalDays}</span><span>{selectedJourneyDay.done ? "Proof submitted" : selectedJourneyDay.isToday ? "Today’s challenge" : "Submission pending"}</span></div>
                 <footer>
                   {selectedJourneyDay.submissionHref ? <a href={selectedJourneyDay.submissionHref} target="_blank" rel="noreferrer">View submission <span aria-hidden="true">↗</span></a> : <button type="button" disabled>View submission</button>}
                   {!selectedJourneyDay.submissionHref && <small>No submission yet for this challenge.</small>}

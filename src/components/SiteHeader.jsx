@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Brand from "./Brand";
 import ThemeButton from "./ThemeButton";
+import { studentData } from "../data";
 
 export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,7 +21,7 @@ export default function SiteHeader() {
           <Link to="/" className={`nav-link${isHome ? " is-active" : ""}`} aria-current={isHome ? "page" : undefined}>Home</Link>
           <Link to="/#about" className={`nav-link${isAbout ? " is-active" : ""}`} aria-current={isAbout ? "page" : undefined}>About</Link>
           <Link to="/dashboard" className={`nav-link${isDashboard ? " is-active" : ""}`} aria-current={isDashboard ? "page" : undefined}>Dashboard</Link>
-          <Link to="/day/12" className="btn btn-primary btn-sm" aria-current={isChallenge ? "page" : undefined}>60 Days Challenge</Link>
+          <Link to={`/day/${studentData.currentDay}`} className="btn btn-primary btn-sm" aria-current={isChallenge ? "page" : undefined}>{studentData.totalDays} Days Challenge</Link>
         </nav>
         <div className="header-actions">
           <ThemeButton />
@@ -43,7 +44,7 @@ export default function SiteHeader() {
             <Link to="/" className={`mobile-link${isHome ? " is-active" : ""}`} aria-current={isHome ? "page" : undefined} onClick={closeMenu}>Home</Link>
             <Link to="/#about" className={`mobile-link${isAbout ? " is-active" : ""}`} aria-current={isAbout ? "page" : undefined} onClick={closeMenu}>About</Link>
             <Link to="/dashboard" className={`mobile-link${isDashboard ? " is-active" : ""}`} aria-current={isDashboard ? "page" : undefined} onClick={closeMenu}>Dashboard</Link>
-            <Link to="/day/12" className="btn btn-primary btn-block" aria-current={isChallenge ? "page" : undefined} onClick={closeMenu}>60 Days Challenge</Link>
+            <Link to={`/day/${studentData.currentDay}`} className="btn btn-primary btn-block" aria-current={isChallenge ? "page" : undefined} onClick={closeMenu}>{studentData.totalDays} Days Challenge</Link>
           </nav>
         </div>
       )}

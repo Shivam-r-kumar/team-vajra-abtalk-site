@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader";
+import { studentData } from "../data";
 
 const values = [
   { title: "Daily Builds", text: "Build something meaningful every day.", icon: "✦" },
@@ -12,7 +13,7 @@ const steps = [
   ["01", "Choose a track", "Pick a track that fits your goals and skill level."],
   ["02", "Build today’s task", "Solve the daily challenge and build something meaningful."],
   ["03", "Submit proof of work", "Push your GitHub commit and share a LinkedIn post."],
-  ["04", "Grow your streak", "Stay consistent for 60 days and keep building momentum."]
+  ["04", "Grow your streak", `Stay consistent for ${studentData.totalDays} days and keep building momentum.`]
 ];
 
 function useReveal() {
@@ -51,8 +52,8 @@ export default function LandingPage() {
         <section className="hero">
           <div className="container hero-grid">
             <div className="hero-copy reveal">
-              <span className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" />60-Day Coding Challenge</span>
-              <h1 className="hero-title">Build for 60 Days.<br />Become <span className="mark">Impossible</span><br />to Ignore.</h1>
+              <span className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" />{studentData.totalDays}-Day Coding Challenge</span>
+              <h1 className="hero-title">Build for {studentData.totalDays} Days.<br />Become <span className="mark">Impossible</span><br />to Ignore.</h1>
               <p className="hero-sub">A coding challenge for Indian college students. Build daily, submit a GitHub commit and a LinkedIn post, and grow your consistency, portfolio, and visibility.</p>
               <div className="hero-actions">
                 <Link to="/dashboard" className="btn btn-primary btn-lg">Enter Your Dashboard</Link>
@@ -64,13 +65,13 @@ export default function LandingPage() {
             <div className="hero-visual reveal" aria-hidden="true">
               <div className="editor-panel">
                 <div className="editor-bar"><span /><span /><span /></div>
-                <pre className="editor-code"><code><span className="c-key">const</span> <span className="c-var">day</span> = <span className="c-num">23</span>;{"\n"}<span className="c-key">while</span> (<span className="c-var">day</span> &lt;= <span className="c-num">60</span>) &#123;{"\n"}  <span className="c-fn">build</span>(); <span className="c-fn">commit</span>(); <span className="c-fn">share</span>();{"\n"}&#125;</code></pre>
+                <pre className="editor-code"><code><span className="c-key">const</span> <span className="c-var">day</span> = <span className="c-num">23</span>;{"\n"}<span className="c-key">while</span> (<span className="c-var">day</span> &lt;= <span className="c-num">{studentData.totalDays}</span>) &#123;{"\n"}  <span className="c-fn">build</span>(); <span className="c-fn">commit</span>(); <span className="c-fn">share</span>();{"\n"}&#125;</code></pre>
               </div>
               <div className="phone">
                 <div className="phone-screen">
                   <div className="phone-topbar"><span className="phone-day">Day 23</span><span className="streak-chip">23 Day Streak 🔥</span></div>
                   <div className="progress-block">
-                    <div className="progress-head"><span>Progress</span><span className="progress-val">23 / 60</span></div>
+                    <div className="progress-head"><span>Progress</span><span className="progress-val">23 / {studentData.totalDays}</span></div>
                     <div className="progress-track"><div className="progress-fill" /></div>
                   </div>
                   <ul className="task-list">
@@ -150,9 +151,9 @@ export default function LandingPage() {
         <section className="section">
           <div className="container">
             <div className="sixty">
-              <div className="sixty-copy reveal"><h2 className="section-title">Why 60 days?</h2><p className="section-sub">Long enough to build momentum. Focused enough to finish.</p></div>
+              <div className="sixty-copy reveal"><h2 className="section-title">Why {studentData.totalDays} days?</h2><p className="section-sub">Long enough to build momentum. Focused enough to finish.</p></div>
               <dl className="sixty-stats reveal">
-                {[['60', 'Days'], ['60', 'Builds'], ['1', 'Stronger Habit']].map(([number, label]) => <div className="stat" key={label}><dt className="stat-num">{number}</dt><dd className="stat-label">{label}</dd></div>)}
+                {[[studentData.totalDays, 'Days'], [studentData.totalDays, 'Builds'], ['1', 'Stronger Habit']].map(([number, label]) => <div className="stat" key={label}><dt className="stat-num">{number}</dt><dd className="stat-label">{label}</dd></div>)}
               </dl>
             </div>
           </div>
@@ -166,7 +167,7 @@ export default function LandingPage() {
         </section>
 
         <section className="section cta-section" id="start">
-          <div className="container"><div className="cta-panel reveal"><h2 className="cta-title">Your next 60 days can change how you build.</h2><p className="cta-sub">Show up daily. Build. Share. Keep moving.</p><Link to="/dashboard" className="btn btn-invert btn-lg">Open Your Dashboard</Link><p className="cta-note">Free to join · Hackathon demo</p></div></div>
+          <div className="container"><div className="cta-panel reveal"><h2 className="cta-title">Your next {studentData.totalDays} days can change how you build.</h2><p className="cta-sub">Show up daily. Build. Share. Keep moving.</p><Link to="/dashboard" className="btn btn-invert btn-lg">Open Your Dashboard</Link><p className="cta-note">Free to join · Hackathon demo</p></div></div>
         </section>
       </main>
 
@@ -174,7 +175,7 @@ export default function LandingPage() {
         <div className="container footer-inner">
           <div className="footer-top">
             <div className="footer-copy"><span className="footer-eyebrow">Build · Learn · Lead</span><h2>Technology meets leadership. Learning becomes proof.</h2><p>AB Talks helps students and early professionals turn practical AI learning into projects, confidence, and career-ready momentum.</p></div>
-            <dl className="footer-proof"><div><dt>60</dt><dd>Days</dd></div><div><dt>60</dt><dd>Builds</dd></div><div><dt>1</dt><dd>Stronger habit</dd></div></dl>
+            <dl className="footer-proof"><div><dt>{studentData.totalDays}</dt><dd>Days</dd></div><div><dt>{studentData.totalDays}</dt><dd>Builds</dd></div><div><dt>1</dt><dd>Stronger habit</dd></div></dl>
           </div>
           <div className="footer-bottom"><p>© 2026 AB Talks. Built for the next generation of AI builders.</p><p>Technology · Leadership · Community</p></div>
         </div>

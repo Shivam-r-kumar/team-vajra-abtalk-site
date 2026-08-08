@@ -106,6 +106,13 @@
 .day-reference-hint { position: absolute; right: 10px; bottom: 10px; display: inline-flex; align-items: center; gap: 6px; padding: 7px 10px; border-radius: var(--radius-pill); background: rgba(7, 17, 31, .86); color: #fff; font-size: 9px; font-weight: 700; box-shadow: 0 5px 16px rgba(7, 17, 31, .2); backdrop-filter: blur(8px); }
 .day-reference-hint b { font-size: 10px; }
 
+.day-domain-brief { position: relative; display: flex; min-height: 230px; overflow: hidden; flex-direction: column; justify-content: flex-end; padding: 24px; border: 1px solid color-mix(in srgb, var(--color-primary) 28%, var(--color-border)); border-radius: 18px; background: linear-gradient(145deg, color-mix(in srgb, var(--color-primary-soft) 55%, var(--color-surface)), var(--color-surface)); box-shadow: var(--shadow-md); }
+.day-domain-brief::after { content: ""; position: absolute; width: 190px; height: 190px; top: -96px; right: -70px; border-radius: 50%; background: color-mix(in srgb, var(--color-primary) 12%, transparent); }
+.day-domain-brief > span { position: relative; z-index: 1; color: var(--color-primary); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 38px; font-weight: 800; }
+.day-domain-brief > p { margin-top: 28px; color: var(--color-primary); font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.day-domain-brief h2 { max-width: 13ch; margin-top: 5px; font-family: var(--font-display); font-size: 30px; font-weight: 400; line-height: 1; }
+.day-domain-brief small { max-width: 42ch; margin-top: 10px; color: var(--color-muted); font-size: 10.5px; line-height: 1.55; }
+
 .day-reference-modal {
   position: fixed;
   z-index: 100;

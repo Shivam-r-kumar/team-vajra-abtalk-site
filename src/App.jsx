@@ -1,9 +1,11 @@
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { ThemeProvider } from "./theme";
+import { DomainProvider } from "./domain";
 import LandingPage from "./pages/LandingPage";
 import DashboardPage from "./pages/DashboardPage";
 import DayChallengePage from "./pages/DayChallengePage";
+import { studentData } from "./data";
 
 function RouteEffects() {
   const location = useLocation();
@@ -24,13 +26,15 @@ function RouteEffects() {
 export default function App() {
   return (
     <ThemeProvider>
-      <RouteEffects />
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/day/12" element={<DayChallengePage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <DomainProvider>
+        <RouteEffects />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path={`/day/${studentData.currentDay}`} element={<DayChallengePage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </DomainProvider>
     </ThemeProvider>
   );
 }

@@ -1,0 +1,68 @@
+{
+  "topSubmissionIds": ["aanya", "dev", "meera"],
+  "friendIds": ["shivam", "riya", "aditya", "neha", "kabir"],
+  "profiles": [
+    {
+      "id": "aanya",
+      "name": "Aanya Sharma",
+      "initials": "AS",
+      "rank": 1,
+      "title": "Editorial developer portfolio",
+      "about": "Frontend developer focused on accessible interfaces, thoughtful typography, and small details that make products feel effortless.",
+      "githubHref": "https://github.com/topics/react-portfolio",
+      "linkedinHref": "https://www.linkedin.com/",
+      "submissionHref": "https://github.com/topics/react-portfolio",
+      "submitted": true
+    },
+    {
+      "id": "dev",
+      "name": "Dev Malhotra",
+      "initials": "DM",
+      "rank": 2,
+      "title": "Motion-first personal website",
+      "about": "Creative developer exploring motion, interaction design, and React experiences that stay fast on every device.",
+      "githubHref": "https://github.com/topics/developer-portfolio",
+      "linkedinHref": "https://www.linkedin.com/",
+      "submissionHref": "https://github.com/topics/developer-portfolio",
+      "submitted": true
+    },
+    {
+      "id": "meera",
+      "name": "Meera Iyer",
+      "initials": "MI",
+      "rank": 3,
+      "title": "Accessible product portfolio",
+      "about": "Product-minded engineer who enjoys turning complex ideas into clear, inclusive, and responsive web experiences.",
+      "githubHref": "https://github.com/topics/portfolio",
+      "linkedinHref": "https://www.linkedin.com/",
+      "submissionHref": "https://github.com/topics/portfolio",
+      "submitted": true
+    },
+    {
+      "id": "riya",
+      "name": "Riya",
+      "initials": "R",
+      "rank": 86,
+      "title": "Playful frontend portfolio",
+      "about": "Design learner and frontend builder experimenting with color, layout, and friendly interactions through daily challenges.",
+      "githubHref": "https://github.com/topics/react-portfolio",
+      "linkedinHref": "https://www.linkedin.com/",
+      "submissionHref": "https://github.com/topics/react-portfolio",
+      "submitted": true
+    },
+    {
+      "id": "aditya",
+      "name": "Aditya",
+      "initials": "A",
+      "rank": 205,
+      "title": "Developer portfolio system",
+      "about": "JavaScript developer building reusable UI systems and using the 60-day challenge to improve consistency.",
+      "githubHref": "https://github.com/topics/developer-portfolio",
+      "linkedinHref": "https://www.linkedin.com/",
+      "submissionHref": "https://github.com/topics/developer-portfolio",
+      "submitted": true
+    },
+    { "id": "neha", "name": "Neha", "initials": "N", "submitted": false },
+    { "id": "kabir", "name": "Kabir", "initials": "K", "submitted": false }
+  ]
+}
